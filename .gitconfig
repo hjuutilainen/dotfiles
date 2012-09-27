@@ -1,0 +1,14 @@
+[user]
+    email = hjuutilainen@mac.com
+    name = Hannes Juutilainen
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+    interactive = auto
+[merge]
+    summary = true
+[core]
+    excludesfile = ~/.gitignore
+    editor = /usr/bin/emacs
+    quotepath = false

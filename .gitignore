@@ -1,0 +1,22 @@
+# Xcode noise
+*.mode1v3
+*.pbxuser
+*.perspective 
+*.perspectivev3
+*.pyc 
+*~.nib/
+build/*
+
+# Xcode 4
+xcuserdata
+project.xcworkspace
+
+# Textmate
+*.tm_build_errors
+
+# old skool
+.svn
+
+# OS X noise
+.DS_Store
+profile
