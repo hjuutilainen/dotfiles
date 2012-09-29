@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ==============================================
-# OS X Client setup
+# .osx-user-defaults
 # for OS X Mountain Lion (10.8.x)
 #
 # Commands target the current boot drive
@@ -10,73 +10,101 @@
 # ==============================================
 
 # ==============================================
-# Set energy preferences
+# NSGlobalDomain settings
 # ==============================================
-systemsetup -setcomputersleep Never
-systemsetup -setdisplaysleep 30
-systemsetup -setharddisksleep Never
 
-# ==============================================
-# Language and formats
-# ==============================================
-defaults write NSGlobalDomain AppleLocale fi_FI
-defaults write NSGlobalDomain AppleMeasurementUnits Centimeters
-defaults write NSGlobalDomain AppleMetricUnits -bool YES
+# Locale
+defaults write NSGlobalDomain AppleLocale -string "fi_FI"
+defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
+defaults write NSGlobalDomain AppleMetricUnits -bool true
 
-# ==============================================
-# Set keyboard preferences
-# ==============================================
-defaults write /Library/Preferences/com.apple.HIToolbox AppleCurrentKeyboardLayoutInputSourceID "com.apple.keylayout.Finnish"
-defaults write /Library/Preferences/com.apple.HIToolbox AppleDefaultAsciiInputSource -dict InputSourceKind "Keyboard Layout" "KeyboardLayout ID" -int 17 "KeyboardLayout Name" Finnish
+# Turn off text smoothing for font sizes
+defaults write NSGlobalDomain AppleAntiAliasingThreshold -int 4
 
-# Delete the default layouts (US)
-defaults delete /Library/Preferences/com.apple.HIToolbox AppleEnabledInputSources
+# Double-click a window's title bar to minimize
+defaults write NSGlobalDomain AppleMiniaturizeOnDoubleClick -bool false
 
-# Enable Finnish layout
-defaults write /Library/Preferences/com.apple.HIToolbox AppleEnabledInputSources -array '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 17; "KeyboardLayout Name" = Finnish; }'
-defaults write /Library/Preferences/com.apple.HIToolbox AppleInputSourceHistory -array '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 17; "KeyboardLayout Name" = Finnish; }'
-defaults write /Library/Preferences/com.apple.HIToolbox AppleSelectedInputSources -array '{ InputSourceKind = "Keyboard Layout"; "KeyboardLayout ID" = 17; "KeyboardLayout Name" = Finnish; }'
+# Use smooth scrolling
+defaults write NSGlobalDomain AppleScrollAnimationEnabled -bool true
 
 # Enable key repeat
-defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool FALSE
+defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 
 # Set keyboard repeat rate
 defaults write NSGlobalDomain KeyRepeat -int 2
 
 # Set scroll direction
-defaults write /Library/Preferences/.GlobalPreferences com.apple.swipescrolldirection -bool false
+defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 
-for USER_TEMPLATE in "/System/Library/User Template"/*
-  do
-    defaults write "${USER_TEMPLATE}"/Library/Preferences/.GlobalPreferences com.apple.swipescrolldirection -bool FALSE
-    defaults write "${USER_TEMPLATE}"/Library/Preferences/.GlobalPreferences ApplePressAndHoldEnabled -bool FALSE
-    defaults write "${USER_TEMPLATE}"/Library/Preferences/.GlobalPreferences KeyRepeat -int 2
-  done
+# Don't restore windows when quitting or re-opening apps
+defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool false
 
+
+# ==============================================
+# Mouse
+# ==============================================
+
+# Secondary click:
+# Possible values: OneButton, TwoButton, TwoButtonSwapped
+defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseButtonMode -string TwoButton
+
+# Smart zoom enabled, double-tap with one finger (set to 0 to disable)
+defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseOneFingerDoubleTapGesture -int 1
+
+# Double-tap with two fingers to Mission Control (set to 0 to disable)
+defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseTwoFingerDoubleTapGesture -int 3
+
+# Two finger horizontal swipe
+# 0 = Swipe between pages with one finger
+# 1 = Swipe between pages
+# 2 = Swipe between full screen apps with two fingers, swipe between pages with one finger (Default Mode)
+defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseTwoFingerHorizSwipeGesture -int 2
+
+defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseVerticalScroll -int 1
+defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseMomentumScroll -int 1
+defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseHorizontalScroll -int 1
 
 # ==============================================
 # Disable CD & DVD actions
 # ==============================================
+
 # Disable blank CD automatic action.
-defaults write /Library/Preferences/com.apple.digihub com.apple.digihub.blank.cd.appeared -dict action 1
+defaults write com.apple.digihub com.apple.digihub.blank.cd.appeared -dict action 1
+
 # Disable music CD automatic action.
-defaults write /Library/Preferences/com.apple.digihub com.apple.digihub.cd.music.appeared -dict action 1
+defaults write com.apple.digihub com.apple.digihub.cd.music.appeared -dict action 1
+
 # Disable picture CD automatic action.
-defaults write /Library/Preferences/com.apple.digihub com.apple.digihub.cd.picture.appeared -dict action 1
+defaults write com.apple.digihub com.apple.digihub.cd.picture.appeared -dict action 1
+
 # Disable blank DVD automatic action.
-defaults write /Library/Preferences/com.apple.digihub com.apple.digihub.blank.dvd.appeared -dict action 1
+defaults write com.apple.digihub com.apple.digihub.blank.dvd.appeared -dict action 1
+
 # Disable video DVD automatic action.
-defaults write /Library/Preferences/com.apple.digihub com.apple.digihub.dvd.video.appeared -dict action 1
-
+defaults write com.apple.digihub com.apple.digihub.dvd.video.appeared -dict action 1
 
 # ==============================================
-# All of the following taken from dotfiles/.osx by Mathias Bynens
-# https://github.com/mathiasbynens/dotfiles/
+# Archive Utility
 # ==============================================
+
+# Move archives to trash after extraction
+defaults write com.apple.archiveutility "dearchive-move-after" -string "~/.Trash"
+
+# Don't reveal extracted items
+defaults write com.apple.archiveutility "dearchive-reveal-after" -bool false
 
 # ==============================================
 # Finder
 # ==============================================
+
+# Expand the "Open with" and "Sharing & Permissions" panes
+defaults write com.apple.finder FXInfoPanesExpanded -dict OpenWith -bool true Privileges -bool true
+
+# Show status bar
+defaults write com.apple.finder ShowStatusBar -bool true
+
+# New window points to home
+defaults write com.apple.finder NewWindowTarget -string "PfHm"
 
 # Finder: disable window animations and Get Info animations
 defaults write com.apple.finder DisableAllAnimations -bool true
@@ -110,6 +138,12 @@ defaults write com.apple.finder FXPreferredViewStyle -string "clmv"
 
 # Show the ~/Library folder
 chflags nohidden ~/Library
+
+
+# ==============================================
+# All of the following taken from dotfiles/.osx by Mathias Bynens
+# https://github.com/mathiasbynens/dotfiles/
+# ==============================================
 
 
 # ==============================================
