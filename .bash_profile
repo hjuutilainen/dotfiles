@@ -1,14 +1,29 @@
-# Most of these are taken from dotfiles by Mathias Bynens
+# History settings
+TIMESTAMP=$(date +%Y%m)
+HISTDIR="$HOME/.history_files"
+#if [[ ! -d $HISTDIR ]]; then
+mkdir -p $HISTDIR
+#fi
+HISTFILESIZE=1000000
+HISTFILE=$HISTDIR/bash_history.${TIMESTAMP}
+HISTTIMEFORMAT="%F %T "
+# We might want to ignore something
+# HISTIGNORE="&:pwd:ls:[bf]g:exit:[ \t]*"
+shopt -s cmdhist
+shopt -s histappend
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+function hs {
+    grep $1 $HISTFILE
+}
+
+# The following are taken from dotfiles by Mathias Bynens
 # https://github.com/mathiasbynens/dotfiles
 
 # Add `~/bin` to the `$PATH`
-export PATH="$HOME/bin:$PATH"
+#export PATH="$HOME/bin:$PATH"
 
 # Case-insensitive globbing
 shopt -s nocaseglob
-
-# Append to the Bash history file, rather than overwriting it
-shopt -s histappend
 
 # Autocorrect typos in path names when using `cd`
 shopt -s cdspell
