@@ -242,6 +242,15 @@ chflags nohidden ~/Library
 # Safari & WebKit
 # ==============================================
 
+# Do not track
+defaults write com.apple.Safari SendDoNotTrackHTTPHeader -bool true
+
+# Don't remember passwords
+defaults write com.apple.Safari AutoFillPasswords -bool false
+
+# Don't restore
+defaults write com.apple.Safari AlwaysRestoreSessionAtLaunch -bool false
+
 # Set Safari’s home page to `about:blank` for faster loading
 defaults write com.apple.Safari HomePage -string "about:blank"
 
