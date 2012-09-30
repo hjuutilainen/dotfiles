@@ -2,7 +2,7 @@
 
 # ==============================================
 # .osx-user-defaults
-# for OS X Mountain Lion (10.8.x)
+# for OS X Lion and Mountain Lion
 #
 # Commands target the current boot drive
 #
@@ -151,6 +151,7 @@ defaults write com.apple.digihub com.apple.digihub.blank.dvd.appeared -dict acti
 
 # Disable video DVD automatic action.
 defaults write com.apple.digihub com.apple.digihub.dvd.video.appeared -dict action 1
+
 
 # ==============================================
 # Archive Utility
@@ -304,6 +305,7 @@ defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 # Enable the debug menu in Disk Utility
 defaults write com.apple.DiskUtility DUDebugMenuEnabled -bool true
 defaults write com.apple.DiskUtility advanced-image-options -bool true
+
 
 # ==============================================
 # Kill affected applications
