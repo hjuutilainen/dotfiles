@@ -38,6 +38,15 @@ defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool false
 
 
 # ==============================================
+# Screensaver
+# ==============================================
+
+# Ask for password after 5 seconds
+defaults write com.apple.screensaver askForPassword -int 1
+defaults write com.apple.screensaver askForPasswordDelay -int 5
+
+
+# ==============================================
 # Mouse
 # ==============================================
 
