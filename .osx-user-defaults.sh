@@ -113,6 +113,27 @@ defaults write com.apple.dock showLaunchpadGestureEnabled -bool true
 
 
 # ==============================================
+# Activity Monitor
+# ==============================================
+
+# Show main window on launch
+defaults write com.apple.ActivityMonitor OpenMainWindow -bool true
+
+# Dock icon = CPU Usage
+defaults write com.apple.ActivityMonitor IconType -int 5
+
+# Show all processes
+defaults write com.apple.ActivityMonitor ShowCategory -int 0
+
+# Sort by CPU usage
+defaults write com.apple.ActivityMonitor SortColumn -string "CPUUsage"
+defaults write com.apple.ActivityMonitor SortDirection -int 0
+
+# Select the Network tab
+defaults write com.apple.ActivityMonitor SelectedTab -int 4
+
+
+# ==============================================
 # Disable CD & DVD actions
 # ==============================================
 
