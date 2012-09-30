@@ -309,7 +309,22 @@ defaults write com.apple.DiskUtility advanced-image-options -bool true
 # Kill affected applications
 # ==============================================
 
-for app in "Dashboard" "Dock" "Finder" "Safari" "SystemUIServer"; do
+appsToKill=(
+"Activity Monitor"
+"BBEdit"
+"Dashboard"
+"Disk Utility"
+"Dock"
+"Finder"
+"Safari"
+"System Preferences"
+"SystemUIServer"
+"Xcode"
+)
+
+for app in "${appsToKill[@]}"
+do
     killall "$app" > /dev/null 2>&1
 done
+
 echo "Done. Note that some of these changes require a logout/restart to take effect."
