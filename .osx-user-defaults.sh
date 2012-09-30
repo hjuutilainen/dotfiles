@@ -33,9 +33,6 @@ defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 # Set keyboard repeat rate
 defaults write NSGlobalDomain KeyRepeat -int 2
 
-# Set scroll direction
-defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
-
 # Don't restore windows when quitting or re-opening apps
 defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool false
 
@@ -43,6 +40,9 @@ defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool false
 # ==============================================
 # Mouse
 # ==============================================
+
+# Set scroll direction
+defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 
 # Secondary click:
 # Possible values: OneButton, TwoButton, TwoButtonSwapped
