@@ -276,7 +276,7 @@ defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
 defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
 
 # Finder: show all filename extensions
-defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+# defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
 # Finder: allow text selection in Quick Look
 defaults write com.apple.finder QLEnableTextSelection -bool true
@@ -287,13 +287,7 @@ defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
 # Avoid creating .DS_Store files on network volumes
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 
-# Disable disk image verification
-#defaults write com.apple.frameworks.diskimages skip-verify -bool true
-#defaults write com.apple.frameworks.diskimages skip-verify-locked -bool true
-#defaults write com.apple.frameworks.diskimages skip-verify-remote -bool true
-
-# Use list view in all Finder windows by default
-# Four-letter codes for the other view modes: `icnv`, `clmv`, `Flwv`
+# Use column view
 defaults write com.apple.finder FXPreferredViewStyle -string "clmv"
 
 # Show the ~/Library folder
