@@ -176,24 +176,38 @@ defaults write com.apple.dt.Xcode AlwaysShowTabBar -bool true
 
 
 # ==============================================
-# BBEdit
+# BBEdit and TextWrangler
 # ==============================================
 
 # Expand tabs to spaces
 defaults write com.barebones.bbedit EditorAutoExpandTabs -bool true
+defaults write com.barebones.textwrangler EditorAutoExpandTabs -bool true
 defaults write com.barebones.bbedit EditorDefaultTabWidth -int 4
+defaults write com.barebones.textwrangler EditorDefaultTabWidth -int 4
 
 # Automatically indent
 defaults write com.barebones.bbedit EditorAutoIndent -bool true
+defaults write com.barebones.textwrangler EditorAutoIndent -bool true
 
 # Don't check spelling
 defaults write com.barebones.bbedit EditorCheckSpellingAsYouType -bool false
+defaults write com.barebones.textwrangler EditorCheckSpellingAsYouType -bool false
 
 # Don't suggest nonsense when I'm writing code
 defaults write com.barebones.bbedit IncludeDictionaryWordsInCompletionList -bool false
+defaults write com.barebones.textwrangler IncludeDictionaryWordsInCompletionList -bool false
 
 # Open documents in new window
 defaults write com.barebones.bbedit NewAndOpenPrefersSharedWindow -bool false
+defaults write com.barebones.textwrangler NewAndOpenPrefersSharedWindow -bool false
+
+# Ensure that file ends with a line break
+defaults write com.barebones.bbedit EnsureTrailingLineBreak -bool true
+defaults write com.barebones.textwrangler EnsureTrailingLineBreak -bool true
+
+# Strip trailing white space
+defaults write com.barebones.bbedit StripTrailingWhitespace -bool true
+defaults write com.barebones.textwrangler StripTrailingWhitespace -bool true
 
 # Allow update checking
 defaults write com.barebones.bbedit SUSoftwareUpdateEnabled -bool true
