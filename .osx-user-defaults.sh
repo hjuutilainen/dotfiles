@@ -134,6 +134,37 @@ defaults write com.apple.ActivityMonitor SelectedTab -int 4
 
 
 # ==============================================
+# Contacts (Address Book)
+# ==============================================
+
+# Address format
+defaults write com.apple.AddressBook ABDefaultAddressCountryCode -string "fi"
+
+# Display format "Last, First"
+defaults write com.apple.AddressBook ABNameDisplay -int 1
+
+# Sort by last name
+defaults write com.apple.AddressBook ABNameSortingFormat -string "sortingLastName sortingFirstName"
+
+
+# ==============================================
+# Calendar (iCal)
+# ==============================================
+
+# Show week numbers (10.8 only)
+defaults write com.apple.iCal "Show Week Numbers" -bool true
+
+# Show 7 days
+defaults write com.apple.iCal "n days of week" -int 7
+
+# Week starts on monday
+defaults write com.apple.iCal "first day of week" -int 1
+
+# Show event times
+defaults write com.apple.iCal "Show time in Month View" -bool true
+
+
+# ==============================================
 # Disable CD & DVD actions
 # ==============================================
 
