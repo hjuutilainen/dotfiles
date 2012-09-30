@@ -215,6 +215,14 @@ defaults write com.barebones.bbedit SUSoftwareUpdateHasCompletedFirstRun -bool t
 
 
 # ==============================================
+# Go2Shell
+# ==============================================
+
+# Custom command, remove the "clear" command
+defaults write com.alice.mac.go2shell customCommand -string "cd %PATH%; pwd"
+
+
+# ==============================================
 # Finder
 # ==============================================
 
