@@ -141,6 +141,17 @@ defaults write com.apple.archiveutility "dearchive-move-after" -string "~/.Trash
 # Don't reveal extracted items
 defaults write com.apple.archiveutility "dearchive-reveal-after" -bool false
 
+
+# ==============================================
+# Xcode
+# ==============================================
+
+# Always use spaces for indenting
+defaults write com.apple.dt.Xcode DVTTextIndentUsingTabs -bool false
+
+# Show tab bar
+defaults write com.apple.dt.Xcode AlwaysShowTabBar -bool true
+
 # ==============================================
 # Finder
 # ==============================================
