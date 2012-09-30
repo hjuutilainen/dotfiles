@@ -259,6 +259,10 @@ chflags nohidden ~/Library
 # Set the icon size of Dock items to 36 pixels
 #defaults write com.apple.dock tilesize -int 36
 
+# Position (left, bottom, right)
+defaults write com.apple.dock orientation -string "left"
+
+
 # ==============================================
 # Safari & WebKit
 # ==============================================
