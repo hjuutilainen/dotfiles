@@ -152,6 +152,32 @@ defaults write com.apple.dt.Xcode DVTTextIndentUsingTabs -bool false
 # Show tab bar
 defaults write com.apple.dt.Xcode AlwaysShowTabBar -bool true
 
+
+# ==============================================
+# BBEdit
+# ==============================================
+
+# Expand tabs to spaces
+defaults write com.barebones.bbedit EditorAutoExpandTabs -bool true
+defaults write com.barebones.bbedit EditorDefaultTabWidth -int 4
+
+# Automatically indent
+defaults write com.barebones.bbedit EditorAutoIndent -bool true
+
+# Don't check spelling
+defaults write com.barebones.bbedit EditorCheckSpellingAsYouType -bool false
+
+# Don't suggest nonsense when I'm writing code
+defaults write com.barebones.bbedit IncludeDictionaryWordsInCompletionList -bool false
+
+# Open documents in new window
+defaults write com.barebones.bbedit NewAndOpenPrefersSharedWindow -bool false
+
+# Allow update checking
+defaults write com.barebones.bbedit SUSoftwareUpdateEnabled -bool true
+defaults write com.barebones.bbedit SUSoftwareUpdateHasCompletedFirstRun -bool true
+
+
 # ==============================================
 # Finder
 # ==============================================
