@@ -350,6 +350,12 @@ defaults write com.apple.dock orientation -string "left"
 # Show status bar
 defaults write com.apple.Safari ShowStatusBar -bool true
 
+# Show favorites bar
+defaults write com.apple.Safari ShowFavoritesBar -bool true
+
+# Don't show tab bar
+defaults write com.apple.Safari AlwaysShowTabBar -bool false
+
 
 # General settings
 
@@ -368,6 +374,7 @@ defaults write com.apple.Safari HomePage -string "about:blank"
 # Don't open "safe" files after downloading
 defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
 
+
 # Tabs settings
 
 # Open pages in tabs instead of windows: automatically
@@ -379,10 +386,12 @@ defaults write com.apple.Safari OpenNewTabsInFront -bool false
 # Command-clicking a link creates tabs
 defaults write com.apple.Safari CommandClickMakesTabs -bool true
 
+
 # Autofill settings
 
 # Don't remember passwords
 defaults write com.apple.Safari AutoFillPasswords -bool false
+
 
 # Security settings
 
@@ -411,15 +420,18 @@ defaults write com.apple.Safari com.apple.Safari.ReadingListFetcher.WebKit2Loads
 defaults write com.apple.Safari com.apple.Safari.ReadingListFetcher.WebKit2LoadsSiteIconsIgnoringImageLoadingPreference -bool true
 defaults write com.apple.Safari com.apple.Safari.ReadingListFetcher.WebKit2JavaScriptEnabled -bool false
 
+
 # Privacy settings
 
 # Do not track
 defaults write com.apple.Safari SendDoNotTrackHTTPHeader -bool true
 
+
 # Extensions settings
 
 # Update extensions automatically
 defaults write com.apple.Safari InstallExtensionUpdatesAutomatically -bool true
+
 
 # Advanced settings
 
