@@ -334,17 +334,8 @@ chflags nohidden ~/Library
 
 
 # ==============================================
-# All of the following taken from dotfiles/.osx by Mathias Bynens
-# https://github.com/mathiasbynens/dotfiles/
-# ==============================================
-
-
-# ==============================================
 # Dock
 # ==============================================
-
-# Set the icon size of Dock items to 36 pixels
-#defaults write com.apple.dock tilesize -int 36
 
 # Position (left, bottom, right)
 defaults write com.apple.dock orientation -string "left"
@@ -354,20 +345,83 @@ defaults write com.apple.dock orientation -string "left"
 # Safari & WebKit
 # ==============================================
 
-# Do not track
-defaults write com.apple.Safari SendDoNotTrackHTTPHeader -bool true
+# Appearance
+
+# Show status bar
+defaults write com.apple.Safari ShowStatusBar -bool true
+
+
+# General settings
+
+# Safari opens with: A new window
+defaults write com.apple.Safari AlwaysRestoreSessionAtLaunch -bool false
+
+# New windows open with: Empty Page
+defaults write com.apple.Safari NewWindowBehavior -int 1
+
+# New tabs open with: Empty Page
+defaults write com.apple.Safari NewTabBehavior -int 1
+
+# Homepage
+defaults write com.apple.Safari HomePage -string "about:blank"
+
+# Don't open "safe" files after downloading
+defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
+
+# Tabs settings
+
+# Open pages in tabs instead of windows: automatically
+defaults write com.apple.Safari TabCreationPolicy -int 1
+
+# Don't make new tabs active
+defaults write com.apple.Safari OpenNewTabsInFront -bool false
+
+# Command-clicking a link creates tabs
+defaults write com.apple.Safari CommandClickMakesTabs -bool true
+
+# Autofill settings
 
 # Don't remember passwords
 defaults write com.apple.Safari AutoFillPasswords -bool false
 
-# Don't restore
-defaults write com.apple.Safari AlwaysRestoreSessionAtLaunch -bool false
+# Security settings
 
-# Set Safari’s home page to `about:blank` for faster loading
-defaults write com.apple.Safari HomePage -string "about:blank"
+# Warn About Fraudulent Websites
+defaults write com.apple.Safari WarnAboutFraudulentWebsites -bool true
 
-# Prevent Safari from opening ‘safe’ files automatically after downloading
-defaults write com.apple.Safari AutoOpenSafeDownloads -bool false
+# Enable plug-ins
+defaults write com.apple.Safari WebKitPluginsEnabled -bool true
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2PluginsEnabled -bool true
+
+# Enable Java
+defaults write com.apple.Safari WebKitJavaEnabled -bool true
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaEnabled -bool true
+
+# Enable JavaScript
+defaults write com.apple.Safari WebKitJavaScriptEnabled -bool true
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaScriptEnabled -bool true
+
+# Block pop-up windows
+defaults write com.apple.Safari WebKitJavaScriptCanOpenWindowsAutomatically -bool false
+defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaScriptCanOpenWindowsAutomatically -bool false
+
+# Reading list
+defaults write com.apple.Safari com.apple.Safari.ReadingListFetcher.WebKit2PluginsEnabled -bool false
+defaults write com.apple.Safari com.apple.Safari.ReadingListFetcher.WebKit2LoadsImagesAutomatically -bool false
+defaults write com.apple.Safari com.apple.Safari.ReadingListFetcher.WebKit2LoadsSiteIconsIgnoringImageLoadingPreference -bool true
+defaults write com.apple.Safari com.apple.Safari.ReadingListFetcher.WebKit2JavaScriptEnabled -bool false
+
+# Privacy settings
+
+# Do not track
+defaults write com.apple.Safari SendDoNotTrackHTTPHeader -bool true
+
+# Extensions settings
+
+# Update extensions automatically
+defaults write com.apple.Safari InstallExtensionUpdatesAutomatically -bool true
+
+# Advanced settings
 
 # Disable Safari’s thumbnail cache for History and Top Sites
 defaults write com.apple.Safari DebugSnapshotsUpdatePolicy -int 2
