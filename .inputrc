@@ -1,0 +1,3 @@
+# <http://cygwin.com/ml/cygwin/2001-02/msg00041.html>
+# This option tells readline to complete filenames regardless of case
+set completion-ignore-case on
