@@ -1,6 +1,13 @@
-[user]
-    email = hjuutilainen@mac.com
-    name = Hannes Juutilainen
+# =======================================
+# Include a machine specific .gitconfig
+# This requires Git v1.7.10 or later
+# =======================================
+[include]
+    path = .byhost/.gitconfig
+
+# =======================================
+# Standard configuration
+# =======================================
 [color]
     diff = auto
     status = auto
