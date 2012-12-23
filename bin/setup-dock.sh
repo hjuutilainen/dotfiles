@@ -33,15 +33,14 @@ function dockutilAdd() {
 # These are the apps I use. There are many others
 # but these deserve their special place in my dock.
 appPaths=(
-"/Applications/App Store.app"
-"/Applications/Launchpad.app"
-"/Applications/App Store.app"
 "/Applications/Launchpad.app"
 "/Applications/Mission Control.app"
+"/Applications/App Store.app"
 "/Applications/Mail.app"
 "/Applications/Safari.app"
 "/Applications/Contacts.app"
 "/Applications/Calendar.app"
+"/Applications/1Password.app"
 "/Applications/Tweetbot.app"
 "/Applications/Reeder.app"
 "/Applications/Transmit.app"
@@ -54,8 +53,6 @@ appPaths=(
 "/Applications/Utilities/Console.app"
 "/Applications/Utilities/Disk Utility.app"
 "/Applications/Utilities/Terminal.app"
-"/Applications/Remote Desktop.app"
-"/Applications/VMware Fusion.app"
 )
 
 for aPath in "${appPaths[@]}"
@@ -69,7 +66,7 @@ done
 # =======================================
 
 # Nothing special here...
-dockutil --add '~/Downloads' --view grid --display stack --sort dateadded --no-restart
-dockutil --add '~/Documents' --view grid --display folder --sort name
+dockutil --add '~/Documents' --view grid --display stack --sort dateadded --no-restart
+dockutil --add '~/Downloads' --view grid --display folder --sort name
 
 exit 0
