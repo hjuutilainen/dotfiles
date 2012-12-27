@@ -14,6 +14,8 @@ import getopt
 import os
 import subprocess
 
+from Foundation import CFPreferencesAppSynchronize
+
 # =======================================
 # Standard Applications
 # =======================================
@@ -120,6 +122,10 @@ thirdPartyApps = [
 
 dockutilPath = ""
 
+class Usage(Exception):
+    def __init__(self, msg):
+        self.msg = msg
+
 def dockutilExists():
     whichProcess = ["which", "dockutil"]
     p = subprocess.Popen(whichProcess, bufsize=1, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -156,12 +162,21 @@ def main(argv=None):
             print "dockutil not found"
             print "Get it from https://github.com/kcrawford/dockutil"
             return 1
-
-        removeEverything( restartDock=False );
         
+        confirmation = raw_input("Are you sure? y/n: ").lower()
+        if confirmation == 'y':
+            print "Continuing..."
+        elif confirmation == '' or confirmation == 'n':
+            raise Usage("Exiting...")
+        else:
+            print 'Please enter y or n.'
+            return 1
+        
+        removeEverything( restartDock=False );
+
         for anApp in appleApps:
             dockutilAdd(anApp, None)
-        
+
         for anApp in appleAppsWithVaryingNames:
             if os.path.exists(anApp["path"]):
                 dockutilAdd(anApp["path"], anApp["args"])
@@ -174,9 +189,11 @@ def main(argv=None):
             else:
                 print "Skipping %s" % anApp["path"]
         
+        # Write all pending changes to permanent storage
+        CFPreferencesAppSynchronize('com.apple.dock')
+        
     except Usage, err:
-        print >> sys.stderr, sys.argv[0].split("/")[-1] + ": " + str(err.msg)
-        print >> sys.stderr, "\t for help use --help"
+        print >> sys.stderr, str(err.msg)
         return 2
 
 if __name__ == "__main__":
