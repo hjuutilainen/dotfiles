@@ -255,9 +255,9 @@ defaults write com.barebones.textwrangler NewAndOpenPrefersSharedWindow -bool fa
 defaults write com.barebones.bbedit EnsureTrailingLineBreak -bool true
 defaults write com.barebones.textwrangler EnsureTrailingLineBreak -bool true
 
-# Strip trailing white space
-defaults write com.barebones.bbedit StripTrailingWhitespace -bool true
-defaults write com.barebones.textwrangler StripTrailingWhitespace -bool true
+# Don't strip trailing white space
+defaults write com.barebones.bbedit StripTrailingWhitespace -bool false
+defaults write com.barebones.textwrangler StripTrailingWhitespace -bool false
 
 # Allow update checking
 defaults write com.barebones.bbedit SUSoftwareUpdateEnabled -bool true
