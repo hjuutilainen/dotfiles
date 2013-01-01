@@ -13,6 +13,8 @@ import sys
 import getopt
 import os
 import subprocess
+import plistlib
+import getpass
 
 from Foundation import CFPreferencesAppSynchronize
 
@@ -154,6 +156,54 @@ def dockutilAdd(aPath, args):
     (output, err) = p.communicate()
     pass
 
+def localDisks():
+    """Run diskutil list -plist """
+    diskutilProcess = ["diskutil", "list", "-plist"]
+    p = subprocess.Popen(diskutilProcess, bufsize=1, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    (output, err) = p.communicate()
+    if output != "":
+        outputPlist = plistlib.readPlistFromString(output)
+        return outputPlist['VolumesFromDisks']
+    else:
+        return None
+
+def addFolders():
+    """
+    Loop through all local disks and check if they contain:
+        <Disk>/Users/username/Documents
+        <Disk>/Users/username/Downloads
+        or
+        <Disk>/home/username/Documents
+        <Disk>/home/username/Downloads
+    
+    Add everything that exists.
+    """
+    username = getpass.getuser()
+    pathsToCheckInDisks = [ "Users", "home" ]
+    foldersToAdd = [ "Documents", "Downloads" ]
+    for aDisk in localDisks():
+        diskPath = os.path.join("/Volumes", aDisk)
+        for aPath in pathsToCheckInDisks:
+            homePath = os.path.join(diskPath, aPath, username)
+            homePath = os.path.realpath(homePath)
+            documents = os.path.join(homePath, "Documents")
+            downloads = os.path.join(homePath, "Downloads")
+            if os.path.exists(documents):
+                args = [
+                    "--view", "grid",
+                    "--display", "stack",
+                    "--sort", "name", 
+                    ]
+                dockutilAdd(documents, args)
+            if os.path.exists(downloads):
+                args = [
+                    "--view", "grid",
+                    "--display", "stack",
+                    "--sort", "dateadded", 
+                    ]
+                dockutilAdd(downloads, args)
+            
+
 def main(argv=None):
     if argv is None:
         argv = sys.argv
@@ -161,6 +211,7 @@ def main(argv=None):
         if not dockutilExists():
             print "dockutil not found"
             print "Get it from https://github.com/kcrawford/dockutil"
+            print "or run \"git clone https://github.com/kcrawford/dockutil.git\""
             return 1
         
         confirmation = raw_input("Are you sure? y/n: ").lower()
@@ -172,25 +223,36 @@ def main(argv=None):
             print 'Please enter y or n.'
             return 1
         
+        # Start with an empty Dock
         removeEverything( restartDock=False );
-
+        
+        # Add standard Apple apps
         for anApp in appleApps:
             dockutilAdd(anApp, None)
-
+            #print "Added %s" % anApp
+        
+        # Add more Apple apps
         for anApp in appleAppsWithVaryingNames:
             if os.path.exists(anApp["path"]):
                 dockutilAdd(anApp["path"], anApp["args"])
+                #print "Added %s" % anApp["path"]
             else:
-                print "Skipping %s" % anApp["path"]
+                print "Skipped %s" % anApp["path"]
         
+        # Add 3rd party apps
         for anApp in thirdPartyApps:
             if os.path.exists(anApp["path"]) or anApp["forced"]:
                 dockutilAdd(anApp["path"], anApp["args"])
+                #print "Added %s" % anApp["path"]
             else:
-                print "Skipping %s" % anApp["path"]
+                print "Skipped %s" % anApp["path"]
+        
+        # Add folders
+        addFolders()
         
         # Write all pending changes to permanent storage
         CFPreferencesAppSynchronize('com.apple.dock')
+        print "Done. You might want to restart Dock by running \"killall Dock\""
         
     except Usage, err:
         print >> sys.stderr, str(err.msg)
