@@ -189,6 +189,7 @@ def addFolders():
             documents = os.path.join(homePath, "Documents")
             downloads = os.path.join(homePath, "Downloads")
             if os.path.exists(documents):
+                print "Adding %s" % documents
                 args = [
                     "--view", "grid",
                     "--display", "stack",
@@ -196,6 +197,7 @@ def addFolders():
                     ]
                 dockutilAdd(documents, args)
             if os.path.exists(downloads):
+                print "Adding %s" % downloads
                 args = [
                     "--view", "grid",
                     "--display", "stack",
