@@ -190,18 +190,22 @@ def addFolders():
             downloads = os.path.join(homePath, "Downloads")
             if os.path.exists(documents):
                 print "Adding %s" % documents
+                label = "Documents (%s)" % aDisk
                 args = [
                     "--view", "grid",
                     "--display", "stack",
-                    "--sort", "name", 
+                    "--sort", "name",
+                    "--label", label
                     ]
                 dockutilAdd(documents, args)
             if os.path.exists(downloads):
                 print "Adding %s" % downloads
+                label = "Downloads (%s)" % aDisk
                 args = [
                     "--view", "grid",
                     "--display", "stack",
-                    "--sort", "dateadded", 
+                    "--sort", "dateadded",
+                    "--label", label
                     ]
                 dockutilAdd(downloads, args)
             
