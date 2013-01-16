@@ -259,6 +259,22 @@ defaults write com.barebones.textwrangler EnsureTrailingLineBreak -bool true
 defaults write com.barebones.bbedit StripTrailingWhitespace -bool false
 defaults write com.barebones.textwrangler StripTrailingWhitespace -bool false
 
+# Complete with ESC
+defaults write com.barebones.bbedit UseEscapeKeyAsCompletionTrigger -boolean true
+defaults write com.barebones.textwrangler UseEscapeKeyAsCompletionTrigger -boolean true
+
+# No default filename extensions
+defaults write com.barebones.bbedit EnableDefaultFilenameExtensions -bool false
+defaults write com.barebones.textwrangler EnableDefaultFilenameExtensions -bool false
+
+# Double-clicking on a delimiter includes the delimiters in the resulting selection
+defaults write com.barebones.bbedit BalanceIncludesDelimiters -bool true
+defaults write com.barebones.textwrangler BalanceIncludesDelimiters -bool true
+
+# Don't try to reopen files if it requires mounting volumes
+defaults write com.barebones.bbedit AllowVolumeMount -bool false
+defaults write com.barebones.textwrangler AllowVolumeMount -bool false
+
 # Allow update checking
 defaults write com.barebones.bbedit SUSoftwareUpdateEnabled -bool true
 defaults write com.barebones.bbedit SUSoftwareUpdateHasCompletedFirstRun -bool true
@@ -269,7 +285,7 @@ defaults write com.barebones.bbedit SUSoftwareUpdateHasCompletedFirstRun -bool t
 # ==============================================
 
 # Custom command, remove the "clear" command
-defaults write com.alice.mac.go2shell customCommand -string "cd %PATH%; pwd"
+defaults write com.alice.mac.go2shell customCommand -string "cd %PATH%"
 
 
 # ==============================================
@@ -483,6 +499,41 @@ defaults write com.apple.DiskUtility advanced-image-options -bool true
 
 
 # ==============================================
+# Terminal
+# ==============================================
+
+# ----------------------------------------------
+# Make a copy of the Basic profile
+# ----------------------------------------------
+
+pathToTerminalPrefs="~/Library/Preferences/com.apple.Terminal.plist"
+/usr/libexec/PlistBuddy -c "Copy :Window\ Settings:Basic :Window\ Settings:Basic\ Improved" $pathToTerminalPrefs
+/usr/libexec/PlistBuddy -c "Set :Window\ Settings:Basic\ Improved:name Basic\ Improved" $pathToTerminalPrefs
+
+# ----------------------------------------------
+# Modify the "Basic Improved" profile
+# ----------------------------------------------
+
+# Close if the shell exited cleanly
+/usr/libexec/PlistBuddy -c "Set :Window\ Settings:Basic\ Improved:shellExitAction 1" $pathToTerminalPrefs
+
+# Make the window a bit larger
+/usr/libexec/PlistBuddy -c "Set :Window\ Settings:Basic\ Improved:columnCount 120" $pathToTerminalPrefs
+/usr/libexec/PlistBuddy -c "Set :Window\ Settings:Basic\ Improved:rowCount 80" $pathToTerminalPrefs
+
+# ----------------------------------------------
+# Modify Terminal preferences
+# ----------------------------------------------
+
+# Shell opens with: /bin/bash
+defaults write com.apple.Terminal Shell -string "/bin/bash"
+
+# Set the "Basic Improved" as the default
+defaults write com.apple.Terminal "Startup Window Settings" -string "Basic Improved"
+defaults write com.apple.Terminal "Default Window Settings" -string "Basic Improved"
+
+
+# ==============================================
 # Kill affected applications
 # ==============================================
 
@@ -499,6 +550,7 @@ appsToKill=(
 "Disk Utility"
 "Safari"
 "System Preferences"
+"Terminal"
 "TextWrangler"
 "Xcode"
 )
