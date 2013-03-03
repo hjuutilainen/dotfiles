@@ -2,8 +2,8 @@
 # Include a machine specific .gitconfig
 # This requires Git v1.7.10 or later
 # =======================================
-[include]
-    path = .byhost/.gitconfig
+#[include]
+#    path = .byhost/.gitconfig
 
 # =======================================
 # Standard configuration

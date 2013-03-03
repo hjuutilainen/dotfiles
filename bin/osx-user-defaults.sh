@@ -10,6 +10,17 @@
 # ==============================================
 
 # ==============================================
+# Files and folders
+# ==============================================
+
+# Show the ~/Library directory
+chflags nohidden "${HOME}/Library"
+
+# Don't show the ~/bin directory
+chflags hidden "${HOME}/bin"
+
+
+# ==============================================
 # NSGlobalDomain settings
 # ==============================================
 
@@ -368,9 +379,6 @@ defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 # Use column view
 defaults write com.apple.finder FXPreferredViewStyle -string "clmv"
 
-# Show the ~/Library folder
-chflags nohidden ~/Library
-
 
 # ==============================================
 # Dock
@@ -503,23 +511,22 @@ defaults write com.apple.DiskUtility advanced-image-options -bool true
 # ==============================================
 
 # ----------------------------------------------
-# Make a copy of the Basic profile
+# Copy the Basic profile to "Basic Improved"
 # ----------------------------------------------
-
-pathToTerminalPrefs="~/Library/Preferences/com.apple.Terminal.plist"
-/usr/libexec/PlistBuddy -c "Copy :Window\ Settings:Basic :Window\ Settings:Basic\ Improved" $pathToTerminalPrefs
-/usr/libexec/PlistBuddy -c "Set :Window\ Settings:Basic\ Improved:name Basic\ Improved" $pathToTerminalPrefs
+pathToTerminalPrefs="${HOME}/Library/Preferences/com.apple.Terminal.plist"
+/usr/libexec/PlistBuddy -c "Copy :Window\ Settings:Basic :Window\ Settings:Basic\ Improved" ${pathToTerminalPrefs}
+/usr/libexec/PlistBuddy -c "Set :Window\ Settings:Basic\ Improved:name Basic\ Improved" ${pathToTerminalPrefs}
 
 # ----------------------------------------------
 # Modify the "Basic Improved" profile
 # ----------------------------------------------
 
 # Close if the shell exited cleanly
-/usr/libexec/PlistBuddy -c "Set :Window\ Settings:Basic\ Improved:shellExitAction 1" $pathToTerminalPrefs
+/usr/libexec/PlistBuddy -c "Add :Window\ Settings:Basic\ Improved:shellExitAction integer 1" ${pathToTerminalPrefs}
 
 # Make the window a bit larger
-/usr/libexec/PlistBuddy -c "Set :Window\ Settings:Basic\ Improved:columnCount 120" $pathToTerminalPrefs
-/usr/libexec/PlistBuddy -c "Set :Window\ Settings:Basic\ Improved:rowCount 80" $pathToTerminalPrefs
+/usr/libexec/PlistBuddy -c "Add :Window\ Settings:Basic\ Improved:columnCount integer 120" ${pathToTerminalPrefs}
+/usr/libexec/PlistBuddy -c "Add :Window\ Settings:Basic\ Improved:rowCount integer 70" ${pathToTerminalPrefs}
 
 # ----------------------------------------------
 # Modify Terminal preferences
@@ -557,10 +564,10 @@ appsToKill=(
 
 for app in "${appsToKill[@]}"
 do
-    killall "$app" > /dev/null 2>&1
+    killall "${app}" > /dev/null 2>&1
     if [[ $? -eq 0 ]]; then
         # We just killed an app so restart it
-        open -a "$app"
+        open -a "${app}"
     fi
 done
 
