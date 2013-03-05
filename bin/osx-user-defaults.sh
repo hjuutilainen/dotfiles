@@ -9,6 +9,14 @@
 # Hannes Juutilainen <hjuutilainen@mac.com>
 # ==============================================
 
+
+function CFPreferencesAppSynchronize() {
+    python - <<END
+from Foundation import CFPreferencesAppSynchronize
+CFPreferencesAppSynchronize('$1')
+END
+}
+
 # ==============================================
 # Files and folders
 # ==============================================
@@ -23,6 +31,7 @@ chflags hidden "${HOME}/bin"
 # ==============================================
 # NSGlobalDomain settings
 # ==============================================
+echo "Setting NSGlobalDomain preferences"
 
 # Locale
 defaults write NSGlobalDomain AppleLocale -string "fi_FI"
@@ -51,6 +60,7 @@ defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool false
 # ==============================================
 # Desktop & Screen Saver
 # ==============================================
+echo "Setting Desktop & Screen Saver preferences"
 
 # No translucent menu bar
 defaults write NSGlobalDomain "AppleEnableMenuBarTransparency" -bool false
@@ -70,6 +80,7 @@ defaults write com.apple.dock "wvous-bl-modifier" -int 0
 # ==============================================
 # Mouse
 # ==============================================
+echo "Setting Mouse preferences"
 
 # Set scroll direction
 defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
@@ -98,6 +109,7 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseHorizontalSc
 # ==============================================
 # Trackpad
 # ==============================================
+echo "Setting Trackpad preferences"
 
 # Tap to click
 defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
@@ -145,6 +157,7 @@ defaults write com.apple.dock showLaunchpadGestureEnabled -bool true
 # ==============================================
 # Activity Monitor
 # ==============================================
+echo "Setting Activity Monitor preferences"
 
 # Show main window on launch
 defaults write com.apple.ActivityMonitor OpenMainWindow -bool true
@@ -166,6 +179,7 @@ defaults write com.apple.ActivityMonitor SelectedTab -int 4
 # ==============================================
 # Contacts (Address Book)
 # ==============================================
+echo "Setting Contacts preferences"
 
 # Address format
 defaults write com.apple.AddressBook ABDefaultAddressCountryCode -string "fi"
@@ -180,6 +194,7 @@ defaults write com.apple.AddressBook ABNameSortingFormat -string "sortingLastNam
 # ==============================================
 # Calendar (iCal)
 # ==============================================
+echo "Setting Calendar preferences"
 
 # Show week numbers (10.8 only)
 defaults write com.apple.iCal "Show Week Numbers" -bool true
@@ -197,6 +212,7 @@ defaults write com.apple.iCal "Show time in Month View" -bool true
 # ==============================================
 # Disable CD & DVD actions
 # ==============================================
+echo "Setting CD & DVD preferences"
 
 # Disable blank CD automatic action.
 defaults write com.apple.digihub com.apple.digihub.blank.cd.appeared -dict action 1
@@ -217,6 +233,7 @@ defaults write com.apple.digihub com.apple.digihub.dvd.video.appeared -dict acti
 # ==============================================
 # Archive Utility
 # ==============================================
+echo "Setting Archive Utility preferences"
 
 # Move archives to trash after extraction
 defaults write com.apple.archiveutility "dearchive-move-after" -string "~/.Trash"
@@ -228,6 +245,7 @@ defaults write com.apple.archiveutility "dearchive-reveal-after" -bool false
 # ==============================================
 # Xcode
 # ==============================================
+echo "Setting Xcode preferences"
 
 # Always use spaces for indenting
 defaults write com.apple.dt.Xcode DVTTextIndentUsingTabs -bool false
@@ -239,6 +257,7 @@ defaults write com.apple.dt.Xcode AlwaysShowTabBar -bool true
 # ==============================================
 # BBEdit and TextWrangler
 # ==============================================
+echo "Setting BBEdit and TextWrangler preferences"
 
 # Expand tabs to spaces
 defaults write com.barebones.bbedit EditorAutoExpandTabs -bool true
@@ -291,17 +310,24 @@ defaults write com.barebones.bbedit SUSoftwareUpdateEnabled -bool true
 defaults write com.barebones.bbedit SUSoftwareUpdateHasCompletedFirstRun -bool true
 
 
+CFPreferencesAppSynchronize "com.barebones.bbedit"
+CFPreferencesAppSynchronize "com.barebones.textwrangler"
+
+
 # ==============================================
 # Go2Shell
 # ==============================================
+echo "Setting Go2Shell preferences"
 
 # Custom command, remove the "clear" command
 defaults write com.alice.mac.go2shell customCommand -string "cd %PATH%"
+CFPreferencesAppSynchronize "com.alice.mac.go2shell"
 
 
 # ==============================================
 # Speed Download
 # ==============================================
+echo "Setting Speed Download preferences"
 
 # Concurrent downloads the queue may start
 defaults write com.yazsoft.SpeedDownload "Queue Length" -int 2
@@ -321,10 +347,13 @@ defaults write com.yazsoft.SpeedDownload "start ul on launch" -bool false
 # Default number of connections
 defaults write com.yazsoft.SpeedDownload "Default Ports" -int 3
 
+CFPreferencesAppSynchronize "com.yazsoft.SpeedDownload"
+
 
 # ==============================================
 # Name Mangler
 # ==============================================
+echo "Setting Name Mangler preferences"
 
 # Concise list
 defaults write com.manytricks.NameMangler "List Style" -int 0
@@ -341,10 +370,42 @@ defaults write com.manytricks.NameMangler Repopulate -bool false
 # No confirmation, just do it
 defaults write com.manytricks.NameMangler Chicken -bool false
 
+CFPreferencesAppSynchronize "com.manytricks.NameMangler"
+
+
+# ==============================================
+# Tweetbot
+# ==============================================
+echo "Setting Tweetbot preferences"
+
+# Use absolute dates
+defaults write com.tapbots.TweetbotMac dateFormatType -int 1
+
+# Display both name and username
+defaults write com.tapbots.TweetbotMac displayNameType -int 3
+
+# Don't pin timeline to top
+defaults write com.tapbots.TweetbotMac streamingPinToTopEnabled -bool false
+
+# Quote format: RT with comment
+defaults write com.tapbots.TweetbotMac quoteFormatType -int 1
+
+# Font size: Medium
+defaults write com.tapbots.TweetbotMac fontSize -int 13
+
+# Don't show status item
+defaults write com.tapbots.TweetbotMac showStatusItem -bool false
+
+# No sounds
+defaults write com.tapbots.TweetbotMac soundType -int 2
+
+CFPreferencesAppSynchronize "com.tapbots.TweetbotMac"
+
 
 # ==============================================
 # Finder
 # ==============================================
+echo "Setting Finder preferences"
 
 # Expand the "Open with" and "Sharing & Permissions" panes
 defaults write com.apple.finder FXInfoPanesExpanded -dict OpenWith -bool true Privileges -bool true
@@ -379,10 +440,12 @@ defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 # Use column view
 defaults write com.apple.finder FXPreferredViewStyle -string "clmv"
 
+CFPreferencesAppSynchronize "com.apple.finder"
 
 # ==============================================
 # Dock
 # ==============================================
+echo "Setting Dock preferences"
 
 # Position (left, bottom, right)
 defaults write com.apple.dock orientation -string "left"
@@ -391,6 +454,7 @@ defaults write com.apple.dock orientation -string "left"
 # ==============================================
 # Safari & WebKit
 # ==============================================
+echo "Setting Safari & WebKit preferences"
 
 # Appearance
 
@@ -496,19 +560,25 @@ defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebK
 # Add a context menu item for showing the Web Inspector in web views
 defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 
+CFPreferencesAppSynchronize "com.apple.Safari"
+
 
 # ==============================================
 # Disk Utility
 # ==============================================
+echo "Setting Disk Utility preferences"
 
 # Enable the debug menu in Disk Utility
 defaults write com.apple.DiskUtility DUDebugMenuEnabled -bool true
 defaults write com.apple.DiskUtility advanced-image-options -bool true
 
+CFPreferencesAppSynchronize "com.apple.DiskUtility"
+
 
 # ==============================================
 # Terminal
 # ==============================================
+echo "Setting Terminal preferences"
 
 # ----------------------------------------------
 # Copy the Basic profile to "Basic Improved"
@@ -539,36 +609,47 @@ defaults write com.apple.Terminal Shell -string "/bin/bash"
 defaults write com.apple.Terminal "Startup Window Settings" -string "Basic Improved"
 defaults write com.apple.Terminal "Default Window Settings" -string "Basic Improved"
 
+CFPreferencesAppSynchronize "com.apple.Terminal"
+
 
 # ==============================================
 # Kill affected applications
 # ==============================================
 
-killall "Finder" > /dev/null 2>&1
-killall "SystemUIServer" > /dev/null 2>&1
-killall "Dock" > /dev/null 2>&1
+function killallApps() {
+    killall "Finder" > /dev/null 2>&1
+    killall "SystemUIServer" > /dev/null 2>&1
+    killall "Dock" > /dev/null 2>&1
 
-appsToKill=(
-"Activity Monitor"
-"BBEdit"
-"Calendar"
-"Contacts"
-"Dashboard"
-"Disk Utility"
-"Safari"
-"System Preferences"
-"Terminal"
-"TextWrangler"
-"Xcode"
-)
+    appsToKill=(
+    "Activity Monitor"
+    "BBEdit"
+    "Calendar"
+    "Contacts"
+    "Dashboard"
+    "Disk Utility"
+    "Safari"
+    "System Preferences"
+    "TextWrangler"
+    "Xcode"
+    )
 
-for app in "${appsToKill[@]}"
-do
-    killall "${app}" > /dev/null 2>&1
-    if [[ $? -eq 0 ]]; then
-        # We just killed an app so restart it
-        open -a "${app}"
-    fi
-done
+    for app in "${appsToKill[@]}"
+    do
+        killall "${app}" > /dev/null 2>&1
+        if [[ $? -eq 0 ]]; then
+            # We just killed an app so restart it
+            open -a "${app}"
+        fi
+    done
 
-echo "Done. Note that some of these changes require a logout/restart to take effect."
+    echo "Note that some of these changes require a logout/restart to take effect."
+}
+
+printf "Restart the affected applications? (y/n): "
+read killallReply
+if [[ $killallReply =~ ^[Yy]$ ]]; then
+    killallApps
+fi
+
+exit 0
