@@ -11,6 +11,9 @@ build/*
 xcuserdata
 project.xcworkspace
 
+# AppCode
+.idea
+
 # Textmate
 *.tm_build_errors
 
