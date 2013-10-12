@@ -77,6 +77,9 @@ defaults write /Library/Preferences/com.apple.loginwindow RetriesUntilHint -int 
 # Allow fast user switching
 defaults write /Library/Preferences/.GlobalPreferences MultipleSessionEnabled -bool true
 
+# Hide users with UID under 500
+defaults write /Library/Preferences/com.apple.loginwindow Hide500Users -bool YES
+
 
 # ==============================================
 # Set keyboard preferences
