@@ -66,7 +66,7 @@ appleAppsWithVaryingNames = [
 # =======================================
 thirdPartyApps = [
     {
-    "path": "/Applications/1Password.app",
+    "path": "/Applications/1Password 4.app",
     "args": [ "--before", "Mail" ],
     "forced": True
     },
