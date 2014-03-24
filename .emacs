@@ -1,5 +1,11 @@
-;; Disable backup
-(setq backup-inhibited t)
+;; Backup settings
+;; http://www.emacswiki.org/emacs/BackupDirectory
+(setq backup-by-copying t)
+(setq version-control t)
+(setq delete-old-versions t)
+(setq kept-old-versions 2)
+(setq kept-new-versions 6)
+(setq backup-directory-alist `(("." . "~/.emacsbackups")))
 
 ;; Disable auto save
 (setq auto-save-default nil)
