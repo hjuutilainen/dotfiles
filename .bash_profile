@@ -15,9 +15,6 @@ function hs {
 # Add ~/bin to $PATH
 export PATH="$HOME/bin:$PATH"
 
-# Add MacPorts paths to $PATH
-export PATH=/opt/local/bin:/opt/local/sbin:$PATH
-
 # Ignore case for wildcard matching within the filesystem names
 shopt -s nocaseglob
 
