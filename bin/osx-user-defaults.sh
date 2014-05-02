@@ -2,7 +2,7 @@
 
 # ==============================================
 # .osx-user-defaults
-# for OS X Lion and Mountain Lion
+# for OS X Lion, Mountain Lion and Mavericks
 #
 # Commands target the current boot drive
 #
