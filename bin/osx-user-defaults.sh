@@ -399,6 +399,9 @@ defaults write com.tapbots.TweetbotMac showStatusItem -bool false
 # No sounds
 defaults write com.tapbots.TweetbotMac soundType -int 2
 
+# Image Thumbnails: Small
+defaults write com.tapbots.TweetbotMac statusViewImageType -int 1
+
 CFPreferencesAppSynchronize "com.tapbots.TweetbotMac"
 
 
