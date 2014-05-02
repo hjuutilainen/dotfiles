@@ -56,6 +56,13 @@ defaults write NSGlobalDomain KeyRepeat -int 2
 # Don't restore windows when quitting or re-opening apps
 defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool false
 
+# Disable smart quotes and dashes
+defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
+defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
+
+# Correct spelling automatically
+defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool true
+
 
 # ==============================================
 # Desktop & Screen Saver
