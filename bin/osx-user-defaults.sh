@@ -38,6 +38,9 @@ defaults write NSGlobalDomain AppleLocale -string "fi_FI"
 defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
 defaults write NSGlobalDomain AppleMetricUnits -bool true
 
+# 24-Hour Time
+defaults write NSGlobalDomain AppleICUForce12HourTime -bool false
+
 # Turn off text smoothing for font sizes
 defaults write NSGlobalDomain AppleAntiAliasingThreshold -int 4
 
