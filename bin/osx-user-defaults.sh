@@ -360,32 +360,6 @@ CFPreferencesAppSynchronize "com.alice.mac.go2shell"
 
 
 # ==============================================
-# Speed Download
-# ==============================================
-echo "Setting Speed Download preferences"
-
-# Concurrent downloads the queue may start
-defaults write com.yazsoft.SpeedDownload "Queue Length" -int 2
-
-# Don't start the download queue on launch
-defaults write com.yazsoft.SpeedDownload "Start On Launch" -bool false
-
-# Plugin may not start the queue
-defaults write com.yazsoft.SpeedDownload "autoStartQueue" -bool false
-
-# Concurrent uploads the queue may start
-defaults write com.yazsoft.SpeedDownload "max sim uploads" -int 1
-
-# Don't start the upload queue on launch
-defaults write com.yazsoft.SpeedDownload "start ul on launch" -bool false
-
-# Default number of connections
-defaults write com.yazsoft.SpeedDownload "Default Ports" -int 3
-
-CFPreferencesAppSynchronize "com.yazsoft.SpeedDownload"
-
-
-# ==============================================
 # Name Mangler
 # ==============================================
 echo "Setting Name Mangler preferences"
