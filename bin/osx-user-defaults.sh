@@ -66,6 +66,9 @@ defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 # Correct spelling automatically
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool true
 
+# Sidebar icon size: Small
+defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 1
+
 
 # ==============================================
 # Desktop & Screen Saver
