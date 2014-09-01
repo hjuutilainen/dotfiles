@@ -294,56 +294,66 @@ defaults write com.apple.dt.Xcode AlwaysShowTabBar -bool true
 # ==============================================
 echo "Setting BBEdit and TextWrangler preferences"
 
-# Expand tabs to spaces
-defaults write com.barebones.bbedit EditorAutoExpandTabs -bool true
-defaults write com.barebones.textwrangler EditorAutoExpandTabs -bool true
-defaults write com.barebones.bbedit EditorDefaultTabWidth -int 4
-defaults write com.barebones.textwrangler EditorDefaultTabWidth -int 4
+function set_barebones_prefs() {
+    defaults write com.barebones.bbedit "$@"
+    defaults write com.barebones.textwrangler "$@"
+}
+
+# Expand tabs to spaces (except in XML)
+set_barebones_prefs EditorAutoExpandTabs -bool true
+set_barebones_prefs EditorAutoExpandTabs_XML -bool false
+
+# In XML, show invisibles and soft wrap text
+set_barebones_prefs EditorShowInvisibleCharacters_XML -bool true
+set_barebones_prefs EditorSoftWrap_XML -bool true
+
+# Default tab width is 4 spaces
+set_barebones_prefs EditorDefaultTabWidth -int 4
+
+# Ruby tab width is 2 spaces
+set_barebones_prefs EditorDefaultTabWidth_Ruby -int 2
 
 # Automatically indent
-defaults write com.barebones.bbedit EditorAutoIndent -bool true
-defaults write com.barebones.textwrangler EditorAutoIndent -bool true
+set_barebones_prefs EditorAutoIndent -bool true
 
 # Don't check spelling
-defaults write com.barebones.bbedit EditorCheckSpellingAsYouType -bool false
-defaults write com.barebones.textwrangler EditorCheckSpellingAsYouType -bool false
+set_barebones_prefs EditorCheckSpellingAsYouType -bool false
 
 # Don't suggest nonsense when I'm writing code
-defaults write com.barebones.bbedit IncludeDictionaryWordsInCompletionList -bool false
-defaults write com.barebones.textwrangler IncludeDictionaryWordsInCompletionList -bool false
+set_barebones_prefs IncludeDictionaryWordsInCompletionList -bool false
 
 # Open documents in new window
-defaults write com.barebones.bbedit NewAndOpenPrefersSharedWindow -bool false
-defaults write com.barebones.textwrangler NewAndOpenPrefersSharedWindow -bool false
+set_barebones_prefs NewAndOpenPrefersSharedWindow -bool false
+
+# Do nothing when app becomes active
+set_barebones_prefs StartupAndResumeAction -int 1
 
 # Ensure that file ends with a line break
-defaults write com.barebones.bbedit EnsureTrailingLineBreak -bool true
-defaults write com.barebones.textwrangler EnsureTrailingLineBreak -bool true
+set_barebones_prefs EnsureTrailingLineBreak -bool true
 
 # Don't strip trailing white space
-defaults write com.barebones.bbedit StripTrailingWhitespace -bool false
-defaults write com.barebones.textwrangler StripTrailingWhitespace -bool false
+set_barebones_prefs StripTrailingWhitespace -bool false
 
 # Complete with ESC
-defaults write com.barebones.bbedit UseEscapeKeyAsCompletionTrigger -boolean true
-defaults write com.barebones.textwrangler UseEscapeKeyAsCompletionTrigger -boolean true
+set_barebones_prefs UseEscapeKeyAsCompletionTrigger -boolean true
 
 # No default filename extensions
-defaults write com.barebones.bbedit EnableDefaultFilenameExtensions -bool false
-defaults write com.barebones.textwrangler EnableDefaultFilenameExtensions -bool false
+set_barebones_prefs EnableDefaultFilenameExtensions -bool false
 
 # Double-clicking on a delimiter includes the delimiters in the resulting selection
-defaults write com.barebones.bbedit BalanceIncludesDelimiters -bool true
-defaults write com.barebones.textwrangler BalanceIncludesDelimiters -bool true
+set_barebones_prefs BalanceIncludesDelimiters -bool true
 
 # Don't try to reopen files if it requires mounting volumes
-defaults write com.barebones.bbedit AllowVolumeMount -bool false
-defaults write com.barebones.textwrangler AllowVolumeMount -bool false
+set_barebones_prefs AllowVolumeMount -bool false
 
 # Allow update checking
-defaults write com.barebones.bbedit SUSoftwareUpdateEnabled -bool true
-defaults write com.barebones.bbedit SUSoftwareUpdateHasCompletedFirstRun -bool true
+set_barebones_prefs SUSoftwareUpdateEnabled -bool true
+set_barebones_prefs SUSoftwareUpdateHasCompletedFirstRun -bool true
 
+# Add some default mappings
+set_barebones_prefs BBSuffixMapOverrides -array-add '{ fileExtension = recipe; languageName = { languageCode = "XML "; languageName = XML; }; }'
+set_barebones_prefs BBSuffixMapOverrides -array-add '{ fileExtension = pkginfo; languageName = { languageCode = "XML "; languageName = XML; }; }'
+set_barebones_prefs BBSuffixMapOverrides -array-add '{ fileExtension = pp; languageName = { languageCode = Ruby; languageName = Ruby; }; }'
 
 CFPreferencesAppSynchronize "com.barebones.bbedit"
 CFPreferencesAppSynchronize "com.barebones.textwrangler"
