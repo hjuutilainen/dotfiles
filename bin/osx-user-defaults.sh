@@ -367,9 +367,9 @@ CFPreferencesAppSynchronize "com.barebones.textwrangler"
 # ==============================================
 echo "Setting Go2Shell preferences"
 
-# Custom command, remove the "clear" command
-defaults write com.alice.mac.go2shell customCommand -string "cd %PATH%"
-CFPreferencesAppSynchronize "com.alice.mac.go2shell"
+# Custom command
+defaults write com.zipzapmac.Go2Shell "Terminal Command" -string "cd %PATH%"
+CFPreferencesAppSynchronize "com.zipzapmac.Go2Shell"
 
 
 # ==============================================
