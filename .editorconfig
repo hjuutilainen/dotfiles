@@ -1,0 +1,50 @@
+# top-most EditorConfig file
+root = true
+
+#
+# Defaults for all file types
+#
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = false
+indent_style = space
+indent_size = 4
+
+# BBEdit defaults
+x-show-invisibles = 0
+x-show-spaces = 0
+x-soft-wrap-text = 1
+x-soft-wrap-mode = WindowWidth
+x-typographers-quotes = 0
+x-balance-while-typing = 1
+
+
+#
+# Property lists, Munki and AutoPkg
+#
+[*.{plist,recipe,pkginfo}]
+mode = XML
+indent_style = tab
+indent_size = 4
+x-show-invisibles = 1
+x-show-spaces = 1
+
+
+#
+# Python
+#
+[*.py]
+mode = Python
+indent_style = space
+indent_size = 4
+
+#
+# Puppet .pp files
+#
+[*.pp]
+mode = Ruby
+indent_style = space
+indent_size = 2
+
