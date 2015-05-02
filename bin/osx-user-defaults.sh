@@ -488,6 +488,7 @@ defaults write com.apple.Safari ShowStatusBar -bool true
 
 # Show favorites bar
 defaults write com.apple.Safari ShowFavoritesBar -bool true
+defaults write com.apple.Safari "ShowFavoritesBar-v2" -bool true
 
 # Don't show tab bar
 defaults write com.apple.Safari AlwaysShowTabBar -bool false
@@ -526,7 +527,7 @@ defaults write com.apple.Safari CommandClickMakesTabs -bool true
 # Autofill settings
 
 # Don't remember passwords
-defaults write com.apple.Safari AutoFillPasswords -bool false
+defaults write com.apple.Safari AutoFillPasswords -bool true
 
 
 # Security settings
@@ -561,6 +562,12 @@ defaults write com.apple.Safari com.apple.Safari.ReadingListFetcher.WebKit2JavaS
 
 # Do not track
 defaults write com.apple.Safari SendDoNotTrackHTTPHeader -bool true
+
+
+# Notifications
+
+# Don't even ask about the push notifications
+defaults write com.apple.Safari CanPromptForPushNotifications -bool false
 
 
 # Extensions settings
