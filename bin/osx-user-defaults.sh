@@ -426,6 +426,15 @@ defaults write com.tapbots.TweetbotMac statusViewImageType -int 1
 
 CFPreferencesAppSynchronize "com.tapbots.TweetbotMac"
 
+# ==============================================
+# VMware Fusion
+# ==============================================
+echo "Setting VMware Fusion preferences"
+
+# Applications menu: Show in Menu Bar: Never
+defaults write com.vmware.fusion showStartMenu3 -int 0
+
+CFPreferencesAppSynchronize "com.vmware.fusion"
 
 # ==============================================
 # Finder
