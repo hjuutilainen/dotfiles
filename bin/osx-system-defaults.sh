@@ -104,13 +104,6 @@ defaults write NSGlobalDomain KeyRepeat -int 2
 # Set scroll direction
 defaults write /Library/Preferences/.GlobalPreferences com.apple.swipescrolldirection -bool false
 
-for USER_TEMPLATE in "/System/Library/User Template"/*
-  do
-    defaults write "${USER_TEMPLATE}"/Library/Preferences/.GlobalPreferences com.apple.swipescrolldirection -bool FALSE
-    defaults write "${USER_TEMPLATE}"/Library/Preferences/.GlobalPreferences ApplePressAndHoldEnabled -bool FALSE
-    defaults write "${USER_TEMPLATE}"/Library/Preferences/.GlobalPreferences KeyRepeat -int 2
-  done
-
 
 # ==============================================
 # Time Machine
