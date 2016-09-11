@@ -569,6 +569,17 @@ defaults write com.apple.Safari com.apple.Safari.ReadingListFetcher.WebKit2JavaS
 
 # Privacy settings
 
+# Cookies and website data
+# - Always block
+#defaults write com.apple.Safari WebKitStorageBlockingPolicy -int 2
+#defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebKit2StorageBlockingPolicy -int 2
+
+# Website use of location services
+# 0 = Deny without prompting
+# 1 = Prompt for each website once each day
+# 2 = Prompt for each website one time only
+defaults write com.apple.Safari SafariGeolocationPermissionPolicy -int 0
+
 # Do not track
 defaults write com.apple.Safari SendDoNotTrackHTTPHeader -bool true
 
