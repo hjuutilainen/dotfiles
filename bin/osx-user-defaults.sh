@@ -622,26 +622,38 @@ CFPreferencesAppSynchronize "com.apple.DiskUtility"
 echo "Setting Terminal preferences"
 
 # ----------------------------------------------
-# Copy the Basic profile to "Basic Improved"
+# Create a new "Basic Improved" profile
 # ----------------------------------------------
-pathToTerminalPrefs="${HOME}/Library/Preferences/com.apple.Terminal.plist"
-/usr/libexec/PlistBuddy -c "Copy :Window\ Settings:Basic :Window\ Settings:Basic\ Improved" ${pathToTerminalPrefs}
-/usr/libexec/PlistBuddy -c "Set :Window\ Settings:Basic\ Improved:name Basic\ Improved" ${pathToTerminalPrefs}
-
-# ----------------------------------------------
-# Modify the "Basic Improved" profile
-# ----------------------------------------------
-
-# Close if the shell exited cleanly
-/usr/libexec/PlistBuddy -c "Add :Window\ Settings:Basic\ Improved:shellExitAction integer 1" ${pathToTerminalPrefs}
-
-# Make the window a bit larger
-/usr/libexec/PlistBuddy -c "Add :Window\ Settings:Basic\ Improved:columnCount integer 120" ${pathToTerminalPrefs}
-/usr/libexec/PlistBuddy -c "Add :Window\ Settings:Basic\ Improved:rowCount integer 70" ${pathToTerminalPrefs}
-
-# ----------------------------------------------
-# Modify Terminal preferences
-# ----------------------------------------------
+defaults write com.apple.Terminal "Window Settings" -dict-add "Basic Improved" "
+<dict>
+    <key>Font</key>
+    <data>
+    YnBsaXN0MDDUAQIDBAUGGBlYJHZlcnNpb25YJG9iamVjdHNZJGFy
+    Y2hpdmVyVCR0b3ASAAGGoKQHCBESVSRudWxs1AkKCwwNDg8QVk5T
+    U2l6ZVhOU2ZGbGFnc1ZOU05hbWVWJGNsYXNzI0AmAAAAAAAAEBCA
+    AoADXlNGTW9uby1SZWd1bGFy0hMUFRZaJGNsYXNzbmFtZVgkY2xh
+    c3Nlc1ZOU0ZvbnSiFRdYTlNPYmplY3RfEA9OU0tleWVkQXJjaGl2
+    ZXLRGhtUcm9vdIABCBEaIy0yNzxCS1JbYmlydHZ4h4yXoKeqs8XI
+    zQAAAAAAAAEBAAAAAAAAABwAAAAAAAAAAAAAAAAAAADP
+    </data>
+    <key>FontAntialias</key>
+    <true/>
+    <key>FontWidthSpacing</key>
+    <real>1.004032258064516</real>
+    <key>ProfileCurrentVersion</key>
+    <real>2.0499999999999998</real>
+    <key>columnCount</key>
+    <integer>100</integer>
+    <key>name</key>
+    <string>Basic Improved</string>
+    <key>rowCount</key>
+    <integer>45</integer>
+    <key>shellExitAction</key>
+    <integer>1</integer>
+    <key>type</key>
+    <string>Window Settings</string>
+</dict>
+"
 
 # Shell opens with: /bin/bash
 defaults write com.apple.Terminal Shell -string "/bin/bash"
