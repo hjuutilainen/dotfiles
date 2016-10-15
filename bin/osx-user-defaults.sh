@@ -437,6 +437,31 @@ defaults write com.vmware.fusion showStartMenu3 -int 0
 CFPreferencesAppSynchronize "com.vmware.fusion"
 
 # ==============================================
+# f.lux
+# ==============================================
+echo "Setting f.lux preferences"
+FLUX_DOMAIN="org.herf.Flux"
+
+# Location, center of Jyväskylä, Finland
+defaults write "${FLUX_DOMAIN}" location "62.242603,25.747257"
+defaults write "${FLUX_DOMAIN}" locationTextField "Jyv\\U00e4skyl\\U00e4"
+defaults write "${FLUX_DOMAIN}" locationType "L"
+
+# Sunset temperature
+defaults write "${FLUX_DOMAIN}" lateColorTemp -int 6500
+
+# Bedtime temperature
+defaults write "${FLUX_DOMAIN}" nightColorTemp -int 3400
+
+# Wake up at 6.30
+defaults write "${FLUX_DOMAIN}" wakeTime -int 390
+
+# Sleep late on weekends
+defaults write "${FLUX_DOMAIN}" sleepLate -bool true
+
+CFPreferencesAppSynchronize "${FLUX_DOMAIN}"
+
+# ==============================================
 # Finder
 # ==============================================
 echo "Setting Finder preferences"
