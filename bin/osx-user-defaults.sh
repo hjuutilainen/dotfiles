@@ -313,8 +313,9 @@ set_barebones_prefs EditorSoftWrap_XML -bool true
 # Default tab width is 4 spaces
 set_barebones_prefs EditorDefaultTabWidth -int 4
 
-# Ruby tab width is 2 spaces
+# Ruby and YAML tab width is 2 spaces
 set_barebones_prefs EditorDefaultTabWidth_Ruby -int 2
+set_barebones_prefs EditorDefaultTabWidth_YAML -int 2
 
 # Automatically indent
 set_barebones_prefs EditorAutoIndent -bool true

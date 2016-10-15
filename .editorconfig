@@ -48,3 +48,11 @@ mode = Ruby
 indent_style = space
 indent_size = 2
 
+#
+# YAML
+#
+[*.{yaml,yml}]
+mode = YAML
+indent_style = space
+indent_size = 2
+
