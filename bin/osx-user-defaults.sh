@@ -69,6 +69,23 @@ defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool true
 # Sidebar icon size: Small
 defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 1
 
+# Don't try to save to iCloud by default
+defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
+
+# Audio and sound effects
+
+# Disable feedback when changing volume
+defaults write NSGlobalDomain com.apple.sound.beep.feedback -bool false
+
+# Disable flashing the screen when an alert sound occurs (accessibility)
+defaults write NSGlobalDomain com.apple.sound.beep.flash -bool false
+
+# Alert volume 50%
+defaults write NSGlobalDomain com.apple.sound.beep.volume -float 0.6065307
+
+# Disable interface sound effects
+defaults write NSGlobalDomain com.apple.sound.uiaudio.enabled -bool false
+
 
 # ==============================================
 # Desktop & Screen Saver
@@ -91,12 +108,15 @@ defaults write com.apple.dock "wvous-bl-modifier" -int 0
 
 
 # ==============================================
-# Mouse
+# Mouse and trackpad
 # ==============================================
 echo "Setting Mouse preferences"
 
 # Set scroll direction
 defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
+
+# Disable force click 
+defaults write NSGlobalDomain com.apple.trackpad.forceClick -bool false
 
 # Secondary click:
 # Possible values: OneButton, TwoButton, TwoButtonSwapped
@@ -119,9 +139,6 @@ defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseMomentumScro
 defaults write com.apple.driver.AppleBluetoothMultitouch.mouse MouseHorizontalScroll -int 1
 
 
-# ==============================================
-# Trackpad
-# ==============================================
 echo "Setting Trackpad preferences"
 
 # Tap to click
@@ -222,11 +239,14 @@ echo "Setting Contacts preferences"
 # Address format
 defaults write com.apple.AddressBook ABDefaultAddressCountryCode -string "fi"
 
-# Display format "Last, First"
-defaults write com.apple.AddressBook ABNameDisplay -int 1
-
 # Sort by last name
 defaults write com.apple.AddressBook ABNameSortingFormat -string "sortingLastName sortingFirstName"
+
+# Display format "Last, First" (High Sierra)
+defaults write NSGlobalDomain NSPersonNameDefaultDisplayNameOrder -int 2
+
+# Prefer nicknames
+defaults write NSGlobalDomain NSPersonNameDefaultShouldPreferNicknamesPreference -bool true
 
 
 # ==============================================
@@ -234,7 +254,7 @@ defaults write com.apple.AddressBook ABNameSortingFormat -string "sortingLastNam
 # ==============================================
 echo "Setting Calendar preferences"
 
-# Show week numbers (10.8 only)
+# Show week numbers
 defaults write com.apple.iCal "Show Week Numbers" -bool true
 
 # Show 7 days
@@ -243,8 +263,17 @@ defaults write com.apple.iCal "n days of week" -int 7
 # Week starts on monday
 defaults write com.apple.iCal "first day of week" -int 1
 
+# Day starts at 8am
+defaults write com.apple.iCal "first minute of work hours" -int 480
+
+# Day ends at 6pm
+defaults write com.apple.iCal "last minute of work hours" -int 1080
+
 # Show event times
 defaults write com.apple.iCal "Show time in Month View" -bool true
+
+# Show events in year view
+defaults write com.apple.iCal "Show heat map in Year View" -bool true
 
 
 # ==============================================
@@ -362,39 +391,31 @@ set_barebones_prefs BBSuffixMapOverrides -array-add '{ fileExtension = pp; langu
 CFPreferencesAppSynchronize "com.barebones.bbedit"
 CFPreferencesAppSynchronize "com.barebones.textwrangler"
 
-
 # ==============================================
-# Go2Shell
+# SourceTree
 # ==============================================
-echo "Setting Go2Shell preferences"
+echo "Setting SourceTree preferences"
 
-# Custom command
-defaults write com.zipzapmac.Go2Shell "Terminal Command" -string "cd %PATH%"
-CFPreferencesAppSynchronize "com.zipzapmac.Go2Shell"
+# Smaller icons in the bookmark view
+defaults write com.torusknot.SourceTreeNotMAS bookmarksStyleSize -int 1
 
+# No notifications
+defaults write com.torusknot.SourceTreeNotMAS disableDesktopNotifications -bool true
 
-# ==============================================
-# Name Mangler
-# ==============================================
-echo "Setting Name Mangler preferences"
+# Diff defaults
+defaults write com.torusknot.SourceTreeNotMAS diffIgnoreWhitespace -bool true
+defaults write com.torusknot.SourceTreeNotMAS diffContextLevel -int 6
 
-# Concise list
-defaults write com.manytricks.NameMangler "List Style" -int 0
+# Staging mode
+defaults write com.torusknot.SourceTreeNotMAS fileStatusFilterMode -int 1
+defaults write com.torusknot.SourceTreeNotMAS fileStatusStagingViewMode -int 1
+defaults write com.torusknot.SourceTreeNotMAS fileStatusViewMode2 -int 1
 
-# No icon previews
-defaults write com.manytricks.NameMangler "Show Icon Previews" -bool false
+# No tips
+defaults write com.torusknot.SourceTreeNotMAS showStagingTip -bool false
+defaults write com.torusknot.SourceTreeNotMAS showToolbarTip -bool false
 
-# Quit when window closed
-defaults write com.manytricks.NameMangler "Quit When Closed" -bool true
-
-# Don't clear the list after processing
-defaults write com.manytricks.NameMangler Repopulate -bool false
-
-# No confirmation, just do it
-defaults write com.manytricks.NameMangler Chicken -bool false
-
-CFPreferencesAppSynchronize "com.manytricks.NameMangler"
-
+CFPreferencesAppSynchronize "com.torusknot.SourceTreeNotMAS"
 
 # ==============================================
 # Tweetbot
@@ -436,31 +457,6 @@ echo "Setting VMware Fusion preferences"
 defaults write com.vmware.fusion showStartMenu3 -int 0
 
 CFPreferencesAppSynchronize "com.vmware.fusion"
-
-# ==============================================
-# f.lux
-# ==============================================
-echo "Setting f.lux preferences"
-FLUX_DOMAIN="org.herf.Flux"
-
-# Location, center of Jyväskylä, Finland
-defaults write "${FLUX_DOMAIN}" location "62.242603,25.747257"
-defaults write "${FLUX_DOMAIN}" locationTextField "Jyv\\U00e4skyl\\U00e4"
-defaults write "${FLUX_DOMAIN}" locationType "L"
-
-# Sunset temperature
-defaults write "${FLUX_DOMAIN}" lateColorTemp -int 6500
-
-# Bedtime temperature
-defaults write "${FLUX_DOMAIN}" nightColorTemp -int 3400
-
-# Wake up at 6.30
-defaults write "${FLUX_DOMAIN}" wakeTime -int 390
-
-# Sleep late on weekends
-defaults write "${FLUX_DOMAIN}" sleepLate -bool true
-
-CFPreferencesAppSynchronize "${FLUX_DOMAIN}"
 
 # ==============================================
 # Finder
@@ -649,6 +645,9 @@ echo "Setting Disk Utility preferences"
 # Enable the debug menu in Disk Utility
 defaults write com.apple.DiskUtility DUDebugMenuEnabled -bool true
 defaults write com.apple.DiskUtility advanced-image-options -bool true
+
+# View -> Show All Devices
+defaults write com.apple.DiskUtility SidebarShowAllDevices -bool true
 
 CFPreferencesAppSynchronize "com.apple.DiskUtility"
 
