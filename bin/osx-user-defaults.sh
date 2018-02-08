@@ -25,7 +25,9 @@ END
 chflags nohidden "${HOME}/Library"
 
 # Don't show the ~/bin directory
-chflags hidden "${HOME}/bin"
+if [[ -d "${HOME}/bin" ]]; then
+    chflags hidden "${HOME}/bin"
+fi
 
 
 # ==============================================
@@ -177,6 +179,8 @@ defaults write com.apple.ActivityMonitor DiskGraphType -int 1
 # Mavericks: Show Data in the Network graph (instead of packets)
 defaults write com.apple.ActivityMonitor NetworkGraphType -int 1
 
+CFPreferencesAppSynchronize "com.apple.ActivityMonitor"
+
 
 # ==============================================
 # Contacts (Address Book)
@@ -194,6 +198,8 @@ defaults write NSGlobalDomain NSPersonNameDefaultDisplayNameOrder -int 2
 
 # Prefer nicknames
 defaults write NSGlobalDomain NSPersonNameDefaultShouldPreferNicknamesPreference -bool true
+
+CFPreferencesAppSynchronize "com.apple.AddressBook"
 
 
 # ==============================================
@@ -221,6 +227,8 @@ defaults write com.apple.iCal "Show time in Month View" -bool true
 
 # Show events in year view
 defaults write com.apple.iCal "Show heat map in Year View" -bool true
+
+CFPreferencesAppSynchronize "com.apple.iCal"
 
 
 # ==============================================
@@ -255,6 +263,8 @@ defaults write com.apple.archiveutility "dearchive-move-after" -string "~/.Trash
 # Don't reveal extracted items
 defaults write com.apple.archiveutility "dearchive-reveal-after" -bool false
 
+CFPreferencesAppSynchronize "com.apple.archiveutility"
+
 
 # ==============================================
 # Xcode
@@ -266,6 +276,8 @@ defaults write com.apple.dt.Xcode DVTTextIndentUsingTabs -bool false
 
 # Show tab bar
 defaults write com.apple.dt.Xcode AlwaysShowTabBar -bool true
+
+CFPreferencesAppSynchronize "com.apple.dt.Xcode"
 
 
 # ==============================================
@@ -338,6 +350,7 @@ set_barebones_prefs BBSuffixMapOverrides -array-add '{ fileExtension = pp; langu
 CFPreferencesAppSynchronize "com.barebones.bbedit"
 CFPreferencesAppSynchronize "com.barebones.textwrangler"
 
+
 # ==============================================
 # SourceTree
 # ==============================================
@@ -363,6 +376,7 @@ defaults write com.torusknot.SourceTreeNotMAS showStagingTip -bool false
 defaults write com.torusknot.SourceTreeNotMAS showToolbarTip -bool false
 
 CFPreferencesAppSynchronize "com.torusknot.SourceTreeNotMAS"
+
 
 # ==============================================
 # Tweetbot
@@ -395,6 +409,7 @@ defaults write com.tapbots.TweetbotMac statusViewImageType -int 1
 
 CFPreferencesAppSynchronize "com.tapbots.TweetbotMac"
 
+
 # ==============================================
 # VMware Fusion
 # ==============================================
@@ -407,6 +422,7 @@ defaults write com.vmware.fusion showStartMenu3 -int 0
 defaults write com.vmware.fusion fusionDevicesToolbarItemIsExpanded -bool true
 
 CFPreferencesAppSynchronize "com.vmware.fusion"
+
 
 # ==============================================
 # Finder
@@ -459,6 +475,8 @@ echo "Setting Dock preferences"
 
 # Position (left, bottom, right)
 defaults write com.apple.dock orientation -string "left"
+
+CFPreferencesAppSynchronize "com.apple.dock"
 
 
 # ==============================================
