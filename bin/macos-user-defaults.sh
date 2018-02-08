@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # ==============================================
-# .osx-user-defaults
-# for OS X Lion, Mountain Lion and Mavericks
+# macos-user-defaults.sh
 #
 # Commands target the current boot drive
 #
