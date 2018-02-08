@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # ==============================================
-# .osx-system-defaults
-# for OS X Mountain Lion (10.8.x)
+# macos-system-defaults.sh
 #
 # Commands target the current boot drive
 #
@@ -50,18 +49,6 @@ defaults write /Library/Preferences/com.apple.alf stealthenabled -bool false
 
 
 # ==============================================
-# Ambient light sensor
-# ==============================================
-
-# Display -> Automatically adjust brightness
-defaults write /Library/Preferences/com.apple.iokit.AmbientLightSensor "Automatic Display Enabled" -bool true
-
-# Keyboard -> Adjust keyboard brightness in low light
-defaults write /Library/Preferences/com.apple.iokit.AmbientLightSensor "Automatic Keyboard Enabled" -bool true
-defaults write /Library/Preferences/com.apple.iokit.AmbientLightSensor "Keyboard Dim Time" -int 300
-
-
-# ==============================================
 # Login window
 # ==============================================
 
@@ -78,7 +65,7 @@ defaults write /Library/Preferences/com.apple.loginwindow RetriesUntilHint -int 
 defaults write /Library/Preferences/.GlobalPreferences MultipleSessionEnabled -bool true
 
 # Hide users with UID under 500
-defaults write /Library/Preferences/com.apple.loginwindow Hide500Users -bool YES
+defaults write /Library/Preferences/com.apple.loginwindow Hide500Users -bool true
 
 
 # ==============================================
@@ -114,20 +101,7 @@ defaults write /Library/Preferences/com.apple.TimeMachine DoNotOfferNewDisksForB
 
 
 # ==============================================
-# Make links to useful apps
 # ==============================================
-
-# Archive Utility
-ln -s "/System/Library/CoreServices/Archive Utility.app" "/Applications/Utilities/Archive Utility.app"
-
-# Directory Utility
-ln -s "/System/Library/CoreServices/Directory Utility.app" "/Applications/Utilities/Directory Utility.app"
-
-# Screen Sharing
-ln -s "/System/Library/CoreServices/Screen Sharing.app" "/Applications/Utilities/Screen Sharing.app"
-
-# Ticket Viewer
-ln -s "/System/Library/CoreServices/Ticket Viewer.app" "/Applications/Utilities/Ticket Viewer.app"
 
 
 echo "Done. Note that these changes require a restart to take effect."
