@@ -403,6 +403,9 @@ echo "Setting VMware Fusion preferences"
 # Applications menu: Show in Menu Bar: Never
 defaults write com.vmware.fusion showStartMenu3 -int 0
 
+# Show the toolbar items
+defaults write com.vmware.fusion fusionDevicesToolbarItemIsExpanded -bool true
+
 CFPreferencesAppSynchronize "com.vmware.fusion"
 
 # ==============================================
