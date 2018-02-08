@@ -59,15 +59,27 @@ defaults write NSGlobalDomain KeyRepeat -int 2
 # Don't restore windows when quitting or re-opening apps
 defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool false
 
+# Disable automatic spelling correction
+defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+
+# Disable capitalize words automatically
+defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
+
+# Enable double-space to period
+defaults write NSGlobalDomain NSAutomaticPeriodSubstitutionEnabled -bool true
+
 # Disable smart quotes and dashes
 defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool false
 defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 
-# Correct spelling automatically
-defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool true
-
 # Sidebar icon size: Small
 defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 1
+
+# Show scroll bars: Always
+defaults write NSGlobalDomain AppleShowScrollBars Always
+
+# Click in the scroll bar to: Jump to the next page
+defaults write NSGlobalDomain AppleScrollerPagingBehavior -int 0
 
 # Don't try to save to iCloud by default
 defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
