@@ -561,6 +561,27 @@ defaults write com.apple.Safari CommandClickMakesTabs -bool true
 defaults write com.apple.Safari AutoFillPasswords -bool true
 
 
+# Search settings
+
+# Search engine: Google
+defaults write -g NSPreferredWebServices -dict 'NSWebServicesProviderWebSearch' '{ NSDefaultDisplayName = Google; NSProviderIdentifier = com.google.www; }'
+
+# Enable search engine suggestions
+defaults write com.apple.Safari SuppressSearchSuggestions -bool false
+
+# Smart search field:
+
+# Disable Safari suggestions
+defaults write com.apple.Safari UniversalSearchEnabled -bool false
+defaults write com.apple.Safari UniversalSearchFeatureNotificationHasBeenDisplayed -bool true
+
+# Disable top hit preloading
+defaults write com.apple.Safari PreloadTopHit -bool false
+
+# Disable quick website search
+defaults write com.apple.Safari WebsiteSpecificSearchEnabled -bool false
+
+
 # Security settings
 
 # Warn About Fraudulent Websites
