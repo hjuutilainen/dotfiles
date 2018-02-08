@@ -431,7 +431,11 @@ defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 # Use column view
 defaults write com.apple.finder FXPreferredViewStyle -string "clmv"
 
+# No tabs, just plain new windows
+defaults write com.apple.finder FinderSpawnTab -bool false
+
 CFPreferencesAppSynchronize "com.apple.finder"
+
 
 # ==============================================
 # Dock
