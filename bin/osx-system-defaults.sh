@@ -15,6 +15,7 @@
 /usr/sbin/systemsetup -settimezone "Europe/Helsinki"
 /usr/sbin/systemsetup -setnetworktimeserver "time.euro.apple.com"
 /usr/sbin/systemsetup -setusingnetworktime on
+/usr/sbin/sysadminctl -automaticTime on
 
 
 # ==============================================
@@ -22,7 +23,7 @@
 # ==============================================
 
 # From <https://github.com/rtrouton/rtrouton_scripts/>
-IS_LAPTOP=`/usr/sbin/system_profiler SPHardwareDataType | grep "Model Identifier" | grep "Book"`
+IS_LAPTOP=$(/usr/sbin/system_profiler SPHardwareDataType | grep "Model Identifier" | grep "Book")
 if [[ "$IS_LAPTOP" != "" ]]; then
     pmset -b sleep 15 disksleep 10 displaysleep 5 halfdim 1
     pmset -c sleep 0 disksleep 0 displaysleep 30 halfdim 1
@@ -67,6 +68,34 @@ defaults write /Library/Preferences/.GlobalPreferences MultipleSessionEnabled -b
 # Hide users with UID under 500
 defaults write /Library/Preferences/com.apple.loginwindow Hide500Users -bool true
 
+# Show input menu
+defaults write /Library/Preferences/com.apple.loginwindow showInputMenu -bool true
+
+# Disable screensaver on login window
+defaults write /Library/Preferences/com.apple.screensaver loginWindowIdleTime -int 0
+
+# Disable automatic login
+defaults delete /Library/Preferences/com.apple.loginwindow autoLoginUser > /dev/null 2>&1
+
+
+# ==============================================
+# Software update
+# ==============================================
+
+# Enable automatic update check and download
+defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticCheckEnabled -bool true
+defaults write /Library/Preferences/com.apple.SoftwareUpdate AutomaticDownload -bool true
+
+# Enable app update installs
+defaults write /Library/Preferences/com.apple.commerce AutoUpdate -bool true
+
+# Enable system data files and security update installs
+defaults write /Library/Preferences/com.apple.SoftwareUpdate ConfigDataInstall -bool true
+defaults write /Library/Preferences/com.apple.SoftwareUpdate CriticalUpdateInstall -bool true
+
+# Enable OS X update installs
+defaults write /Library/Preferences/com.apple.commerce AutoUpdateRestartRequired -bool true
+
 
 # ==============================================
 # Set keyboard preferences
@@ -101,7 +130,11 @@ defaults write /Library/Preferences/com.apple.TimeMachine DoNotOfferNewDisksForB
 
 
 # ==============================================
+# Guest access off
 # ==============================================
+/usr/sbin/sysadminctl -guestAccount off
+/usr/sbin/sysadminctl -afpGuestAccess off
+/usr/sbin/sysadminctl -smbGuestAccess off
 
 
 echo "Done. Note that these changes require a restart to take effect."
