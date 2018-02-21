@@ -231,6 +231,17 @@ CFPreferencesAppSynchronize "com.apple.iCal"
 
 
 # ==============================================
+# Mail
+# ==============================================
+echo "Setting Mail preferences"
+
+# Mark all messages as read when opening a conversation
+defaults write com.apple.mail ConversationViewMarkAllAsRead -bool true
+
+CFPreferencesAppSynchronize "com.apple.mail"
+
+
+# ==============================================
 # Disable CD & DVD actions
 # ==============================================
 echo "Setting CD & DVD preferences"
