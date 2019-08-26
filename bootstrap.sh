@@ -21,4 +21,3 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
     fi
 fi
 unset doIt
-source ~/.bash_profile
