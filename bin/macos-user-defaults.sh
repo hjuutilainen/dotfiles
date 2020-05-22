@@ -76,8 +76,8 @@ defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 # Sidebar icon size: Small
 defaults write NSGlobalDomain NSTableViewDefaultSizeMode -int 1
 
-# Show scroll bars: Always
-defaults write NSGlobalDomain AppleShowScrollBars Always
+# Show scroll bars: Always, Automatic, WhenScrolling
+defaults write NSGlobalDomain AppleShowScrollBars Automatic
 
 # Click in the scroll bar to: Jump to the next page
 defaults write NSGlobalDomain AppleScrollerPagingBehavior -int 0
@@ -98,6 +98,9 @@ defaults write NSGlobalDomain com.apple.sound.beep.volume -float 0.6065307
 
 # Disable interface sound effects
 defaults write NSGlobalDomain com.apple.sound.uiaudio.enabled -bool false
+
+# Show fast user switching menu as: Icon
+defaults write NSGlobalDomain userMenuExtraStyle -int 2
 
 
 # ==============================================
