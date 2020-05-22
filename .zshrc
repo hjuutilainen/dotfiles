@@ -60,7 +60,7 @@ setopt GLOB_COMPLETE
 setopt AUTO_CD
 
 # Try to correct the spelling of commands.
-setopt CORRECT
+#setopt CORRECT
 
 # Try to correct the spelling of all arguments in a line.
 #setopt CORRECT_ALL
@@ -88,7 +88,7 @@ select-word-style bash
 typeset -U path
 
 path=("$HOME/bin" $path)
-path=("$HOME/homebrew/bin" $path)
+path=("$HOME/homebrew.noindex/bin" $path)
 export fpath
 
 
