@@ -695,7 +695,7 @@ defaults write com.apple.Terminal "Window Settings" -dict-add "Basic Improved" "
 "
 
 # Shell opens with: /bin/bash
-defaults write com.apple.Terminal Shell -string "/bin/bash"
+# defaults write com.apple.Terminal Shell -string "/bin/bash"
 
 # Set the "Basic Improved" as the default
 defaults write com.apple.Terminal "Startup Window Settings" -string "Basic Improved"
