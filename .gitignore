@@ -1,25 +1,18 @@
+# macOS noise
+.DS_Store
+profile
+
 # Xcode noise
 *.mode1v3
 *.pbxuser
-*.perspective 
+*.perspective
 *.perspectivev3
-*.pyc 
 *~.nib/
-build/*
-
-# Xcode 4
 xcuserdata
 project.xcworkspace
 
-# AppCode
-.idea
-
-# Textmate
-*.tm_build_errors
+# Python noise
+*.pyc
 
 # old skool
 .svn
-
-# OS X noise
-.DS_Store
-profile

@@ -1,36 +1,34 @@
-# =======================================
-# Include a machine specific .gitconfig
-# This requires Git v1.7.10 or later
-# =======================================
-#[include]
-#    path = .byhost/.gitconfig
-
-# =======================================
+#
 # Standard configuration
-# =======================================
+#
 [color]
     diff = auto
     status = auto
     branch = auto
     interactive = auto
+
 [merge]
     summary = true
+
+[diff]
+    colorMoved = true
+
+[fetch]
+    prune = true
+
 [core]
     excludesfile = ~/.gitignore
-    editor = /usr/bin/emacs
     quotepath = false
 
-# =======================================
-# Kaleidoscope.app
-# =======================================
-[difftool "Kaleidoscope"]
-    cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
-[diff]
-    tool = Kaleidoscope
-[difftool]
-    prompt = false
-[mergetool "Kaleidoscope"]
-    cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
-    trustExitCode = true
-[mergetool]
-    prompt = false
+[pull]
+    rebase = false
+
+[init]
+    defaultBranch = main
+
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true

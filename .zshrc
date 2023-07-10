@@ -65,7 +65,7 @@ setopt NO_CORRECT_ALL
 
 # -> https://scriptingosx.com/2019/07/moving-to-zsh-part-5-completions/
 
-fpath=( ~/Documents/koodaus/opensource/mac-zsh-completions/completions $fpath )
+fpath=( ~/.local/share/git-repos/mac-zsh-completions $fpath )
 
 autoload -Uz compinit && compinit
 
@@ -97,6 +97,9 @@ fi
 if [[ -d "/opt/local/bin" ]]; then
     path=("/opt/local/bin" $path)
 fi
+if [[ -d "/opt/homebrew/bin" ]]; then
+    path=("/opt/homebrew/bin" $path)
+fi
 if [[ -d "$HOME/Applications/cli.noindex/homebrew/bin" ]]; then
     path=("$HOME/Applications/cli.noindex/homebrew/bin" $path)
 fi
@@ -111,6 +114,9 @@ if [[ -d "/Library/Frameworks/Python.framework/Versions/3.9/bin" ]]; then
 fi
 if [[ -d "/Library/Frameworks/Python.framework/Versions/3.10/bin" ]]; then
     path=("/Library/Frameworks/Python.framework/Versions/3.10/bin" $path)
+fi
+if [[ -d "/Library/Frameworks/Python.framework/Versions/3.11/bin" ]]; then
+    path=("/Library/Frameworks/Python.framework/Versions/3.11/bin" $path)
 fi
 
 export fpath
@@ -134,11 +140,38 @@ if [[ -f /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh ]]; then
 fi
 
 #
-# Misc 
+# 1Password CLI
+#
+eval "$(op completion zsh)"; compdef _op op
+
+#
+# atuin
+#
+# don't bind control-R or arrow keys
+#
+if [[ -f /opt/homebrew/bin/atuin || -f ${HOME}/.nix-profile/bin/atuin ]]; then
+    eval "$(atuin init zsh --disable-up-arrow --disable-ctrl-r)"
+fi
+
+#
+# direnv
+#
+if [[ -f /opt/homebrew/bin/direnv || -f ${HOME}/.nix-profile/bin/direnv ]]; then
+    eval "$(direnv hook zsh)"
+fi
+
+#
+# Homebrew
+#
+export HOMEBREW_NO_ANALYTICS=1
+export HOMEBREW_NO_GOOGLE_ANALYTICS=1
+
+#
+# Misc
 #
 
 export CLICOLOR=1
-
+export EDITOR="bbedit -w"
 
 #
 # Aliases
@@ -146,7 +179,6 @@ export CLICOLOR=1
 
 alias history='fc -i -l 1'
 alias PlistBuddy='/usr/libexec/PlistBuddy'
-
 
 #
 # Load custom files from .zsh.d

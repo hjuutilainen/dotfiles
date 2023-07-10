@@ -36,19 +36,14 @@ shopt -s nocaseglob
 # Make sure every simultaneous session has the same history
 export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
-#
-# Some history helpers
-#
-function hs {
-    grep $1 $HISTFILE
-}
-alias h1='history 10'
-alias h2='history 20'
-alias h3='history 30'
-
 # Add ~/bin to $PATH
 export PATH="$HOME/bin:$PATH"
 
 # Prefer US English and use UTF-8
 export LC_ALL="en_US.UTF-8"
 export LANG="en_US"
+
+# include .bash_profile_local if it exists
+if [[ -f $HOME/.bash_profile_local ]]; then
+    . $HOME/.bash_profile_local
+fi
