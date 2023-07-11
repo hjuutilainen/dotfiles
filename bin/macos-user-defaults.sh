@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -x
+set -euo pipefail
+
 # ==============================================
 # macos-user-defaults.sh
 #
@@ -9,16 +12,9 @@
 # ==============================================
 
 
-function CFPreferencesAppSynchronize() {
-    python - <<END
-from Foundation import CFPreferencesAppSynchronize
-CFPreferencesAppSynchronize('$1')
-END
-}
-
-# ==============================================
+#
 # Files and folders
-# ==============================================
+#
 
 # Show the ~/Library directory
 chflags nohidden "${HOME}/Library"
@@ -29,15 +25,34 @@ if [[ -d "${HOME}/bin" ]]; then
 fi
 
 
-# ==============================================
+#
 # NSGlobalDomain settings
-# ==============================================
+#
 echo "Setting NSGlobalDomain preferences"
+
+# Interface style: Light
+defaults delete NSGlobalDomain AppleInterfaceStyle > /dev/null 2>&1 || true
+defaults delete NSGlobalDomain AppleInterfaceStyleSwitchesAutomatically > /dev/null 2>&1 || true
+
+# Interface style: Dark
+# defaults write NSGlobalDomain AppleInterfaceStyle -string "Dark"
+# defaults delete NSGlobalDomain AppleInterfaceStyleSwitchesAutomatically > /dev/null 2>&1 || true
+
+# Interface style: Auto
+# defaults delete NSGlobalDomain AppleInterfaceStyle > /dev/null 2>&1 || true
+# defaults write NSGlobalDomain AppleInterfaceStyleSwitchesAutomatically -bool true
+
+# Don't automatically hide and show the menu bar
+defaults write NSGlobalDomain _HIHideMenuBar -bool false
+
+# Don't allow wallpaper tinting in windows
+defaults write NSGlobalDomain AppleReduceDesktopTinting -bool true
 
 # Locale
 defaults write NSGlobalDomain AppleLocale -string "fi_FI"
 defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
 defaults write NSGlobalDomain AppleMetricUnits -bool true
+defaults write NSGlobalDomain AppleTemperatureUnit -string "Celsius"
 
 # 24-Hour Time
 defaults write NSGlobalDomain AppleICUForce12HourTime -bool false
@@ -60,8 +75,21 @@ defaults write NSGlobalDomain KeyRepeat -int 2
 # Don't restore windows when quitting or re-opening apps
 defaults write NSGlobalDomain NSQuitAlwaysKeepsWindows -bool false
 
+# Disable window animations
+defaults write NSGlobalDomain NSAutomaticWindowAnimationsEnabled -bool false
+
+# Set window resize time
+defaults write NSGlobalDomain NSWindowResizeTime -float 0.001
+
+# Enable text completion
+defaults write NSGlobalDomain NSAutomaticTextCompletionEnabled -bool true
+
 # Disable automatic spelling correction
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+defaults write NSGlobalDomain WebAutomaticSpellingCorrectionEnabled -bool false
+
+# Automatically identify language for spelling correction
+defaults write NSGlobalDomain NSSpellCheckerAutomaticallyIdentifiesLanguages -bool true
 
 # Disable capitalize words automatically
 defaults write NSGlobalDomain NSAutomaticCapitalizationEnabled -bool false
@@ -82,10 +110,26 @@ defaults write NSGlobalDomain AppleShowScrollBars Automatic
 # Click in the scroll bar to: Jump to the next page
 defaults write NSGlobalDomain AppleScrollerPagingBehavior -int 0
 
+# Ask to keep changes when closing documents
+defaults write NSGlobalDomain NSCloseAlwaysConfirmsChanges -bool true
+
 # Don't try to save to iCloud by default
 defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 
+# Disable App Nap for all apps
+defaults write NSGlobalDomain NSAppSleepDisabled -bool true
+
+# Disable automatic termination of inactive apps
+defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
+
+# Show fast user switching menu as: Icon
+defaults write NSGlobalDomain userMenuExtraStyle -int 2
+
+
+#
 # Audio and sound effects
+#
+echo "Setting Sound preferences"
 
 # Disable feedback when changing volume
 defaults write NSGlobalDomain com.apple.sound.beep.feedback -bool false
@@ -99,13 +143,11 @@ defaults write NSGlobalDomain com.apple.sound.beep.volume -float 0.6065307
 # Disable interface sound effects
 defaults write NSGlobalDomain com.apple.sound.uiaudio.enabled -bool false
 
-# Show fast user switching menu as: Icon
-defaults write NSGlobalDomain userMenuExtraStyle -int 2
 
 
-# ==============================================
+#
 # Desktop & Screen Saver
-# ==============================================
+#
 echo "Setting Desktop & Screen Saver preferences"
 
 # No translucent menu bar
@@ -115,29 +157,62 @@ defaults write NSGlobalDomain "AppleEnableMenuBarTransparency" -bool false
 defaults write com.apple.screensaver askForPassword -int 1
 defaults write com.apple.screensaver askForPasswordDelay -int 5
 
-# Screen Saver: Flurry
-defaults -currentHost write com.apple.screensaver moduleDict -dict moduleName -string "Flurry" path -string "/System/Library/Screen Savers/Flurry.saver" type -int 0
+# Set screensaver to "Computer Name"
+defaults -currentHost write com.apple.screensaver moduleDict -dict moduleName -string "Computer Name" path -string "/System/Library/Frameworks/ScreenSaver.framework/PlugIns/Computer Name.appex" type -int 0
 
 # Hot corners -> bottom left -> start screen saver
 defaults write com.apple.dock "wvous-bl-corner" -int 5
 defaults write com.apple.dock "wvous-bl-modifier" -int 0
 
 
-# ==============================================
+#
 # Mouse and trackpad
-# ==============================================
+#
 echo "Setting Mouse and Trackpad preferences"
 
-# Set scroll direction
+# Enable tap to click
+defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
+
+# Disable natural scroll direction
 defaults write NSGlobalDomain com.apple.swipescrolldirection -bool false
 
 # Swipe between pages with two fingers
 defaults write NSGlobalDomain AppleEnableSwipeNavigateWithScrolls -bool true
 
+# Enable secondary click with two fingers
+defaults write com.apple.AppleMultitouchTrackpad TrackpadRightClick -bool true
 
-# ==============================================
+# Disable secondary click in bottom right or left corner if secondary click with two fingers is enabled
+defaults write com.apple.AppleMultitouchTrackpad TrackpadCornerSecondaryClick -int 0
+
+
+#
+# Accessibility
+#
+
+# Reduce motion
+defaults write com.apple.universalaccess reduceMotion -bool true
+
+# Reduce transparency
+defaults write com.apple.universalaccess reduceTransparency -bool true
+
+# Show window title icons
+defaults write com.apple.universalaccess showWindowTitlebarIcons -bool true
+
+# Show toolbar button shapes
+defaults write com.apple.universalaccess showToolbarButtonShapes -bool true
+
+
+
+# =====================
+# Applications
+# =====================
+
+
+
+#
 # Activity Monitor
-# ==============================================
+#
 echo "Setting Activity Monitor preferences"
 
 # Show main window on launch
@@ -149,44 +224,43 @@ defaults write com.apple.ActivityMonitor IconType -int 5
 # Show all processes
 defaults write com.apple.ActivityMonitor ShowCategory -int 100
 
-# Mountain Lion: Sort by CPU usage
+# Sort by CPU usage
 defaults write com.apple.ActivityMonitor SortColumn -string "CPUUsage"
 defaults write com.apple.ActivityMonitor SortDirection -int 0
 
-# Mavericks: Add the "% CPU" column to the Disk and Network tabs
-defaults write com.apple.ActivityMonitor "UserColumnsPerTab v4.0" -dict \
-    '0' '( Command, CPUUsage, CPUTime, Threads, IdleWakeUps, PID, UID )' \
+# Add the "% CPU" column to the Disk and Network tabs
+defaults write com.apple.ActivityMonitor "UserColumnsPerTab v6.0" -dict \
+    '0' '( Command, CPUUsage, CPUTime, Threads, IdleWakeUps, Architecture, GPUUsage, GPUTime, PID, UID )' \
     '1' '( Command, anonymousMemory, Threads, Ports, PID, UID, ResidentSize )' \
-    '2' '( Command, PowerScore, 12HRPower, AppSleep, graphicCard, UID )' \
-    '3' '( Command, bytesWritten, bytesRead, Architecture, PID, UID, CPUUsage )' \
+    '2' '( Command, PowerScore, 12HRPower, AppSleep, graphicCard, powerAssertion, UID )' \
+    '3' '( Command, bytesWritten, bytesRead, PID, UID, CPUUsage )' \
     '4' '( Command, txBytes, rxBytes, txPackets, rxPackets, PID, UID, CPUUsage )'
 
-# Mavericks: Sort by CPU usage in Disk and Network tabs
+# Sort by CPU usage in Disk and Network tabs
 defaults write com.apple.ActivityMonitor UserColumnSortPerTab -dict \
     '0' '{ direction = 0; sort = CPUUsage; }' \
-    '1' '{ direction = 0; sort = ResidentSize; }' \
+    '1' '{ direction = 0; sort = anonymousMemory; }' \
     '2' '{ direction = 0; sort = 12HRPower; }' \
     '3' '{ direction = 0; sort = CPUUsage; }' \
     '4' '{ direction = 0; sort = CPUUsage; }'
 
 # Select the Network tab
-defaults write com.apple.ActivityMonitor SelectedTab -int 4
+# defaults write com.apple.ActivityMonitor SelectedTab -int 4
 
 # Update Frequency: Often (2 sec)
 defaults write com.apple.ActivityMonitor UpdatePeriod -int 2
 
-# Mavericks: Show Data in the Disk graph (instead of IO)
+# Show Data in the Disk graph (instead of IO)
 defaults write com.apple.ActivityMonitor DiskGraphType -int 1
 
-# Mavericks: Show Data in the Network graph (instead of packets)
+# Show Data in the Network graph (instead of packets)
 defaults write com.apple.ActivityMonitor NetworkGraphType -int 1
 
-CFPreferencesAppSynchronize "com.apple.ActivityMonitor"
 
 
-# ==============================================
+#
 # Contacts (Address Book)
-# ==============================================
+#
 echo "Setting Contacts preferences"
 
 # Address format
@@ -201,12 +275,11 @@ defaults write NSGlobalDomain NSPersonNameDefaultDisplayNameOrder -int 2
 # Prefer nicknames
 defaults write NSGlobalDomain NSPersonNameDefaultShouldPreferNicknamesPreference -bool true
 
-CFPreferencesAppSynchronize "com.apple.AddressBook"
 
 
-# ==============================================
+#
 # Calendar (iCal)
-# ==============================================
+#
 echo "Setting Calendar preferences"
 
 # Show week numbers
@@ -230,77 +303,50 @@ defaults write com.apple.iCal "Show time in Month View" -bool true
 # Show events in year view
 defaults write com.apple.iCal "Show heat map in Year View" -bool true
 
-CFPreferencesAppSynchronize "com.apple.iCal"
 
 
-# ==============================================
+#
 # Mail
-# ==============================================
+#
 echo "Setting Mail preferences"
 
 # Mark all messages as read when opening a conversation
 defaults write com.apple.mail ConversationViewMarkAllAsRead -bool true
 
-CFPreferencesAppSynchronize "com.apple.mail"
+# Disable sounds
+defaults write com.apple.mail PlayMailSounds -bool false
+
+# Disable URL loading
+defaults write com.apple.mail-shared DisableURLLoading -bool true
 
 
-# ==============================================
-# Disable CD & DVD actions
-# ==============================================
-echo "Setting CD & DVD preferences"
 
-# Disable blank CD automatic action.
-defaults write com.apple.digihub com.apple.digihub.blank.cd.appeared -dict action 1
-
-# Disable music CD automatic action.
-defaults write com.apple.digihub com.apple.digihub.cd.music.appeared -dict action 1
-
-# Disable picture CD automatic action.
-defaults write com.apple.digihub com.apple.digihub.cd.picture.appeared -dict action 1
-
-# Disable blank DVD automatic action.
-defaults write com.apple.digihub com.apple.digihub.blank.dvd.appeared -dict action 1
-
-# Disable video DVD automatic action.
-defaults write com.apple.digihub com.apple.digihub.dvd.video.appeared -dict action 1
-
-
-# ==============================================
+#
 # Archive Utility
-# ==============================================
+#
 echo "Setting Archive Utility preferences"
+
+# Move archives to trash after extraction
+defaults write com.apple.archiveutility "dearchive-into" -string "."
 
 # Move archives to trash after extraction
 defaults write com.apple.archiveutility "dearchive-move-after" -string "~/.Trash"
 
+# Move archives to trash after extraction
+defaults write com.apple.archiveutility "dearchive-recursively" -bool true
+
 # Don't reveal extracted items
 defaults write com.apple.archiveutility "dearchive-reveal-after" -bool false
 
-CFPreferencesAppSynchronize "com.apple.archiveutility"
 
 
-# ==============================================
-# Xcode
-# ==============================================
-echo "Setting Xcode preferences"
-
-# Always use spaces for indenting
-defaults write com.apple.dt.Xcode DVTTextIndentUsingTabs -bool false
-
-# Show tab bar
-defaults write com.apple.dt.Xcode AlwaysShowTabBar -bool true
-
-CFPreferencesAppSynchronize "com.apple.dt.Xcode"
-
-
-# ==============================================
-# BBEdit and TextWrangler
-# ==============================================
+#
+# BBEdit
+#
 echo "Setting BBEdit and TextWrangler preferences"
 
 function set_barebones_prefs() {
     defaults write com.barebones.bbedit "$@"
-    defaults write com.barebones.textwrangler "$@"
 }
 
 # Expand tabs to spaces (except in XML)
@@ -360,13 +406,11 @@ set_barebones_prefs BBSuffixMapOverrides -array-add '{ fileExtension = recipe; l
 set_barebones_prefs BBSuffixMapOverrides -array-add '{ fileExtension = pkginfo; languageName = { languageCode = "XML "; languageName = XML; }; }'
 set_barebones_prefs BBSuffixMapOverrides -array-add '{ fileExtension = pp; languageName = { languageCode = Ruby; languageName = Ruby; }; }'
 
-CFPreferencesAppSynchronize "com.barebones.bbedit"
-CFPreferencesAppSynchronize "com.barebones.textwrangler"
 
 
-# ==============================================
+#
 # SourceTree
-# ==============================================
+#
 echo "Setting SourceTree preferences"
 
 # Smaller icons in the bookmark view
@@ -388,44 +432,11 @@ defaults write com.torusknot.SourceTreeNotMAS fileStatusViewMode2 -int 1
 defaults write com.torusknot.SourceTreeNotMAS showStagingTip -bool false
 defaults write com.torusknot.SourceTreeNotMAS showToolbarTip -bool false
 
-CFPreferencesAppSynchronize "com.torusknot.SourceTreeNotMAS"
 
 
-# ==============================================
-# Tweetbot
-# ==============================================
-echo "Setting Tweetbot preferences"
-
-# Use absolute dates
-defaults write com.tapbots.TweetbotMac dateFormatType -int 1
-
-# Display both name and username
-defaults write com.tapbots.TweetbotMac displayNameType -int 3
-
-# Don't pin timeline to top
-defaults write com.tapbots.TweetbotMac streamingPinToTopEnabled -bool false
-
-# Quote format: RT with comment
-defaults write com.tapbots.TweetbotMac quoteFormatType -int 1
-
-# Font size: Medium
-defaults write com.tapbots.TweetbotMac fontSize -int 13
-
-# Don't show status item
-defaults write com.tapbots.TweetbotMac showStatusItem -bool false
-
-# No sounds
-defaults write com.tapbots.TweetbotMac soundType -int 2
-
-# Image Thumbnails: Small
-defaults write com.tapbots.TweetbotMac statusViewImageType -int 1
-
-CFPreferencesAppSynchronize "com.tapbots.TweetbotMac"
-
-
-# ==============================================
+#
 # VMware Fusion
-# ==============================================
+#
 echo "Setting VMware Fusion preferences"
 
 # Applications menu: Show in Menu Bar: Never
@@ -434,12 +445,11 @@ defaults write com.vmware.fusion showStartMenu3 -int 0
 # Show the toolbar items
 defaults write com.vmware.fusion fusionDevicesToolbarItemIsExpanded -bool true
 
-CFPreferencesAppSynchronize "com.vmware.fusion"
 
 
-# ==============================================
+#
 # Finder
-# ==============================================
+#
 echo "Setting Finder preferences"
 
 # Expand the "Open with" and "Sharing & Permissions" panes
@@ -461,7 +471,7 @@ defaults write com.apple.finder ShowMountedServersOnDesktop -bool true
 defaults write com.apple.finder ShowRemovableMediaOnDesktop -bool true
 
 # Finder: show all filename extensions
-# defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
 # Finder: allow text selection in Quick Look
 defaults write com.apple.finder QLEnableTextSelection -bool true
@@ -478,23 +488,21 @@ defaults write com.apple.finder FXPreferredViewStyle -string "clmv"
 # No tabs, just plain new windows
 defaults write com.apple.finder FinderSpawnTab -bool false
 
-CFPreferencesAppSynchronize "com.apple.finder"
 
 
-# ==============================================
+#
 # Dock
-# ==============================================
+#
 echo "Setting Dock preferences"
 
 # Position (left, bottom, right)
 defaults write com.apple.dock orientation -string "left"
 
-CFPreferencesAppSynchronize "com.apple.dock"
 
 
-# ==============================================
+#
 # Safari & WebKit
-# ==============================================
+#
 echo "Setting Safari & WebKit preferences"
 
 # Appearance
@@ -503,11 +511,13 @@ echo "Setting Safari & WebKit preferences"
 defaults write com.apple.Safari ShowStatusBar -bool true
 
 # Show favorites bar
-defaults write com.apple.Safari ShowFavoritesBar -bool true
 defaults write com.apple.Safari "ShowFavoritesBar-v2" -bool true
 
 # Don't show tab bar
 defaults write com.apple.Safari AlwaysShowTabBar -bool false
+
+# No background colors in toolbar
+defaults write com.apple.Safari NeverUseBackgroundColorInToolbar -bool true
 
 
 # General settings
@@ -542,14 +552,26 @@ defaults write com.apple.Safari CommandClickMakesTabs -bool true
 
 # Autofill settings
 
-# Don't remember passwords
-defaults write com.apple.Safari AutoFillPasswords -bool true
+# Don't autofill anything
+defaults write com.apple.Safari AutoFillCreditCardData -bool false
+defaults write com.apple.Safari AutoFillFromAddressBook -bool false
+defaults write com.apple.Safari AutoFillMiscellaneousForms -bool false
+defaults write com.apple.Safari AutoFillPasswords -bool false
 
 
 # Search settings
 
 # Search engine: Google
-defaults write -g NSPreferredWebServices -dict 'NSWebServicesProviderWebSearch' '{ NSDefaultDisplayName = Google; NSProviderIdentifier = com.google.www; }'
+# defaults write -g NSPreferredWebServices -dict 'NSWebServicesProviderWebSearch' '{ NSDefaultDisplayName = Google; NSProviderIdentifier = com.google.www; }'
+# defaults write com.apple.Safari SearchProviderShortName -string "Google"
+
+# Search engine: Bing
+# defaults write -g NSPreferredWebServices -dict 'NSWebServicesProviderWebSearch' '{ NSDefaultDisplayName = Bing; NSProviderIdentifier = com.bing.www; }'
+# defaults write com.apple.Safari SearchProviderShortName -string "Bing"
+
+# Search engine: DuckDuckGo
+defaults write -g NSPreferredWebServices -dict 'NSWebServicesProviderWebSearch' '{ NSDefaultDisplayName = DuckDuckGo; NSProviderIdentifier = com.duckduckgo; }'
+defaults write com.apple.Safari SearchProviderShortName -string "DuckDuckGo"
 
 # Enable search engine suggestions
 defaults write com.apple.Safari SuppressSearchSuggestions -bool false
@@ -640,12 +662,11 @@ defaults write com.apple.Safari com.apple.Safari.ContentPageGroupIdentifier.WebK
 # Add a context menu item for showing the Web Inspector in web views
 defaults write NSGlobalDomain WebKitDeveloperExtras -bool true
 
-CFPreferencesAppSynchronize "com.apple.Safari"
 
 
-# ==============================================
+#
 # Disk Utility
-# ==============================================
+#
 echo "Setting Disk Utility preferences"
 
 # Enable the debug menu in Disk Utility
@@ -655,12 +676,14 @@ defaults write com.apple.DiskUtility advanced-image-options -bool true
 # View -> Show All Devices
 defaults write com.apple.DiskUtility SidebarShowAllDevices -bool true
 
-CFPreferencesAppSynchronize "com.apple.DiskUtility"
+# Show APFS snapshots
+defaults write com.apple.DiskUtility WorkspaceShowAPFSSnapshots -bool true
 
 
-# ==============================================
+
+#
 # Terminal
-# ==============================================
+#
 echo "Setting Terminal preferences"
 
 # ----------------------------------------------
@@ -704,8 +727,6 @@ defaults write com.apple.Terminal "Window Settings" -dict-add "Basic Improved" "
 defaults write com.apple.Terminal "Startup Window Settings" -string "Basic Improved"
 defaults write com.apple.Terminal "Default Window Settings" -string "Basic Improved"
 
-CFPreferencesAppSynchronize "com.apple.Terminal"
-
 
 # ==============================================
 # Kill affected applications
@@ -721,12 +742,9 @@ function killallApps() {
     "BBEdit"
     "Calendar"
     "Contacts"
-    "Dashboard"
     "Disk Utility"
     "Safari"
     "System Preferences"
-    "TextWrangler"
-    "Xcode"
     )
 
     for app in "${appsToKill[@]}"
