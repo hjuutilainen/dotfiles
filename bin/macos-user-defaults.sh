@@ -125,6 +125,8 @@ defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
 # Show fast user switching menu as: Icon
 defaults write NSGlobalDomain userMenuExtraStyle -int 2
 
+# Prefer tabs in full-screen apps only
+defaults write NSGlobalDomain AppleWindowTabbingMode -string "fullscreen"
 
 #
 # Audio and sound effects
@@ -506,6 +508,12 @@ defaults write com.apple.WindowManager EnableStandardClickToShowDesktop -bool fa
 
 # Disable Stage Manager
 defaults write com.apple.WindowManager GloballyEnabled -bool false
+
+# Show desktop icons
+defaults write com.apple.WindowManager StandardHideDesktopIcons -bool false
+
+# Show widgets
+defaults write com.apple.WindowManager StandardHideWidgets -bool false
 
 
 #
