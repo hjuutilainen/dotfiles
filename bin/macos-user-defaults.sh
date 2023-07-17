@@ -491,13 +491,21 @@ defaults write com.apple.finder FinderSpawnTab -bool false
 
 
 #
-# Dock
+# Desktop & Dock
 #
-echo "Setting Dock preferences"
+echo "Setting Desktop & Dock preferences"
 
 # Position (left, bottom, right)
 defaults write com.apple.dock orientation -string "left"
 
+# Hide recent apps
+defaults write com.apple.dock show-recents -bool false
+
+# Disable click wallpaper to show desktop items
+defaults write com.apple.WindowManager EnableStandardClickToShowDesktop -bool false
+
+# Disable Stage Manager
+defaults write com.apple.WindowManager GloballyEnabled -bool false
 
 
 #
