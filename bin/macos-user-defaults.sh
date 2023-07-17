@@ -48,14 +48,28 @@ defaults write NSGlobalDomain _HIHideMenuBar -bool false
 # Don't allow wallpaper tinting in windows
 defaults write NSGlobalDomain AppleReduceDesktopTinting -bool true
 
-# Locale
-defaults write NSGlobalDomain AppleLocale -string "fi_FI"
+# Language and Region (locale)
+defaults write NSGlobalDomain AppleLanguages -array "en-US"
+#defaults write NSGlobalDomain AppleLocale -string "fi_FI"
+defaults write NSGlobalDomain AppleLocale -string "en_FI"
 defaults write NSGlobalDomain AppleMeasurementUnits -string "Centimeters"
 defaults write NSGlobalDomain AppleMetricUnits -bool true
 defaults write NSGlobalDomain AppleTemperatureUnit -string "Celsius"
 
+# First day of week, 1 = Sunday, 2 = Monday, etc.
+defaults write NSGlobalDomain AppleFirstWeekday -dict gregorian -int 2
+
+# Default date format
+defaults delete NSGlobalDomain AppleICUDateFormatStrings
+
+# Custom date format
+# defaults write NSGlobalDomain AppleICUDateFormatStrings -dict 1 "y-MM-dd"
+
 # 24-Hour Time
 defaults write NSGlobalDomain AppleICUForce12HourTime -bool false
+
+# Live Text
+defaults write NSGlobalDomain AppleLiveTextEnabled -bool true
 
 # Turn off text smoothing for font sizes
 defaults write NSGlobalDomain AppleAntiAliasingThreshold -int 4
@@ -291,7 +305,7 @@ defaults write com.apple.iCal "Show Week Numbers" -bool true
 defaults write com.apple.iCal "n days of week" -int 7
 
 # Week starts on monday
-defaults write com.apple.iCal "first day of week" -int 1
+defaults write com.apple.iCal "first day of week" -int 0
 
 # Day starts at 8am
 defaults write com.apple.iCal "first minute of work hours" -int 480
