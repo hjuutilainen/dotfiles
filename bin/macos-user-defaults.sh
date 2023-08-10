@@ -60,7 +60,7 @@ defaults write NSGlobalDomain AppleTemperatureUnit -string "Celsius"
 defaults write NSGlobalDomain AppleFirstWeekday -dict gregorian -int 2
 
 # Default date format
-defaults delete NSGlobalDomain AppleICUDateFormatStrings
+defaults delete NSGlobalDomain AppleICUDateFormatStrings > /dev/null 2>&1 || true
 
 # Custom date format
 # defaults write NSGlobalDomain AppleICUDateFormatStrings -dict 1 "y-MM-dd"
@@ -399,7 +399,7 @@ set_barebones_prefs StartupAndResumeAction -int 1
 set_barebones_prefs EnsureTrailingLineBreak -bool true
 
 # Don't strip trailing white space
-set_barebones_prefs StripTrailingWhitespace -bool false
+set_barebones_prefs StripTrailingWhitespace -bool true
 
 # Complete with ESC
 set_barebones_prefs UseEscapeKeyAsCompletionTrigger -boolean true
